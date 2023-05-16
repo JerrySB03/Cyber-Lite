@@ -1,0 +1,30 @@
+{
+    "Questions": {
+        "Jaký operační systém byste zvolily pro běžného zaměstnance?": {
+            "Answers": {
+                "Kali Linux": {
+                    "Correct": false
+                },
+                "Solaris": {
+                    "Correct": false
+                },
+                "Windows": {
+                    "Correct": true
+                }
+            }
+        },
+        "Co nedělá Antivirus ?": {
+            "Answers": {
+                "Instaluje volitelné aplikace.": {
+                    "Correct": true
+                },
+                "Chrání vás před nebezpečnými aplikacemi z internetu.": {
+                    "Correct": false
+                },
+                "Chrání vás před nebezpečnými webovými stránkami.": {
+                    "Correct": false
+                }
+            }
+        }
+    }
+}
