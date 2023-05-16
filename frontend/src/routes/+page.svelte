@@ -1,118 +1,180 @@
-<!-- Dark and Lightmode -->
-<link rel="stylesheet" href="dark-mode.css" media="(prefers-color-scheme: dark)" />
-<link rel="stylesheet" href="light-mode.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" />
-<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
-
-
 <script>
-	import { readable } from 'svelte/store';
-  
+  import { readable } from "svelte/store";
+  import { onMount } from "svelte";
 
+  // Show mobile icon and display menu
+  let showMobileMenu = false;
 
-  
-	import { onMount } from "svelte";
+  // List of navigation items
+  const navItems = [
+    { label: "CyberLite", href: "#" },
+    { label: "Home", href: "#" },
+    { label: "Item 2", href: "#" },
+    { label: "Úlohy", href: "/task" },
+    { label: "O nás", href: "#aboutus" },
+    { label: "Login", href: "/login" },
+  ];
 
-	// Show mobile icon and display menu
-	let showMobileMenu = false;
+  const handleMobileIconClick = () => (showMobileMenu = !showMobileMenu);
+  const mediaQueryHandler = () => {
+    showMobileMenu = false;
+  };
+  onMount(() => {
+    const mediaListener = window.matchMedia("(max-width: 767px)");
 
-	// List of navigation items
-	const navItems = [
-	{ label: "CyberLite", href: "#" },
-	{ label: "Home", href: "#" },
-	{ label: "Item 2", href: "#" },
-	{ label: "Item 3", href: "#" },
-	{ label: "O nás", href: "/aboutus" },
-	{ label: "Login", href: "/login" },
-	];
+    mediaListener.addListener(mediaQueryHandler);
+  });
+  //Magic text
 
-	const handleMobileIconClick = () => (showMobileMenu = !showMobileMenu);
-	const mediaQueryHandler= ()  => {
-		showMobileMenu = false;
+  let magictext = "";
 
-	};
-	onMount(() => {
-	const mediaListener = window.matchMedia("(max-width: 767px)");
+  onMount(() => {
+    const originalText = "Kybernetická bezpečnost je pro ";
+    const replacements = ["ajťáky", "učitele", "zaměstantce", "všechny"];
 
-	mediaListener.addListener(mediaQueryHandler);
-	});
+    let currentIndex = 0;
+    let currentReplacementIndex = 0;
 
-  
+    const updateText = () => {
+      if (currentIndex < originalText.length) {
+        magictext = originalText.slice(0, currentIndex + 1);
+        currentIndex++;
+      } else if (currentReplacementIndex < replacements.length) {
+        const currentWord = replacements[currentReplacementIndex];
+        if (currentIndex < originalText.length + currentWord.length) {
+          magictext =
+            originalText +
+            currentWord.slice(0, currentIndex - originalText.length + 1);
+          currentIndex++;
+        } else {
+          currentIndex = originalText.length;
+          currentReplacementIndex++;
+        }
+      } else {
+        clearInterval(interval);
+      }
+    };
 
-	
+    const interval = setInterval(updateText, 120);
+  });
 </script>
 
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"
+/>
 
 <div class="backgroundImage">
-  <canvas class="background"></canvas>
+  <canvas class="background" />
   <nav>
-	<div class="inner">
-	  <div on:click={handleMobileIconClick} tabindex="0" class={`mobile-icon${showMobileMenu ? ' active' : ''}`}>
-		<div class="middle-line"></div>
-	  </div>
-	  <ul class={`navbar-list${showMobileMenu ? ' mobile' : ''}`}>
-		{#each navItems as item}
-		  <li>
-			<a href={item.href}>{item.label}</a>
-		  </li>
-		{/each}
-	  </ul>
-	</div>
-	<div class="wallground"></div>
-	<p style="border-radius: 20px; border-width:3px; border-style:solid; border-color:#7C7C7C; padding: 0em; margin-left: 50px; margin-right: 350px" class="line"></p>
-	<div class="changeText">
-		<p></p>
-	</div>
-	<div class="div-topText">
-		
-		<h1 class="h1-mt; font-family: Ubuntu; color: black;">Lorem ipsum</h1>
-		<p style="font-family: Ubuntu; color: black;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Fusce suscipit libero eget elit. Sed vel lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, 
-			sem. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Aliquam erat volutpat. Cras pede 
-			libero, dapibus nec, pretium sit amet, tempor quis. Etiam bibendum elit eget erat. Duis condimentum augue id magna semper rutrum. In dapibus augue non sapien. 
-			Sed ac dolor sit amet purus malesuada congue. Maecenas fermentum, sem in pharetra.</p>
-	</div>
-	<div class="div-newChall">
-		<div class="bar">
-			<div class="redButton" style = "font-family: Ubuntu; position:relative; left:4px; top:15px; text-align: center"></div>
-			<div class="yellowButton" style = "font-family: Ubuntu; position:relative; left:2px; top:0px;"></div>
-			<div class="greenButton" style = "font-family: Ubuntu; position:relative; left:0px; top:-15px;"></div>
-			<div class="searchBar" style = "font-family: Ubuntu; position:relative; left:350px; top: -35px; border-radius: 20px; text-align: center; font-size: 14px">Nove ulohy</div>
-		</div>
-		<p>Jak předejít phishingu, rozdíl mezi phishingem a whalingem</p>
-	</div>
-	<div class="shadow"></div>
-	<div class="div-bottomText" style="font-family: U;">
-		<h2 style="text-decoration: underline; color: black;">Lorem susum</h2>
-		<p style="color: black">Aenean fermentum risus id tortor. Integer malesuada. Nullam dapibus fermentum ipsum. Quisque porta. Morbi scelerisque luctus velit. Fusce tellus odio, dapibus id 
-			fermentum quis, suscipit id erat. In dapibus augue non sapien. Vivamus luctus egestas leo. Integer in sapien. Vivamus luctus egestas leo. Nullam faucibus mi quis 
-			velit. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et </p>
-	</div>
-	<p style="border-radius: 20px; border-width:3px; border-style:solid; border-color:#7C7C7C; padding: 0em; margin-left: 50px; margin-right: 350px" class="line"></p>
+    <div class="inner">
+      <div
+        on:click={handleMobileIconClick}
+        tabindex="0"
+        class={`mobile-icon${showMobileMenu ? " active" : ""}`}
+      >
+        <div class="middle-line" />
+      </div>
+      <ul class={`navbar-list${showMobileMenu ? " mobile" : ""}`}>
+        {#each navItems as item}
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        {/each}
+      </ul>
+    </div>
+    <div class="wallground" />
+    <p
+      style="border-radius: 20px; border-width:3px; border-style:solid; border-color:#7C7C7C; padding: 0em; margin-left: 50px; margin-right: 350px"
+      class="line"
+    />
+    <div class="changeText">
+      <p />
+    </div>
+    <br />
+    <br />
+    <div class="magictext">
+      <p style="font-size: Ubuntu;">{magictext}</p>
+    </div>
+    <div class="div-topText">
+      <h1 class="h1-mt; font-family: Ubuntu; color: black;">Lorem ipsum</h1>
+      <p style="font-family: Ubuntu; color: black;">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Fusce suscipit
+        libero eget elit. Sed vel lectus. Donec odio tempus molestie, porttitor
+        ut, iaculis quis, sem. Integer rutrum, orci vestibulum ullamcorper
+        ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet
+        enim. Aliquam erat volutpat. Cras pede libero, dapibus nec, pretium sit
+        amet, tempor quis. Etiam bibendum elit eget erat. Duis condimentum augue
+        id magna semper rutrum. In dapibus augue non sapien. Sed ac dolor sit
+        amet purus malesuada congue. Maecenas fermentum, sem in pharetra.
+      </p>
+    </div>
+    <div class="div-newChall">
+      <div class="bar">
+        <div
+          class="redButton"
+          style="font-family: Ubuntu; position:relative; left:4px; top:15px; text-align: center"
+        />
+        <div
+          class="yellowButton"
+          style="font-family: Ubuntu; position:relative; left:2px; top:0px;"
+        />
+        <div
+          class="greenButton"
+          style="font-family: Ubuntu; position:relative; left:0px; top:-15px;"
+        />
+        <div
+          class="searchBar"
+          style="font-family: Ubuntu; position:relative; left:350px; top: -35px; border-radius: 20px; text-align: center; font-size: 14px"
+        >
+          Nove ulohy
+        </div>
+      </div>
+      <p>Jak předejít phishingu, rozdíl mezi phishingem a whalingem</p>
+    </div>
+    <div class="shadow" />
+    <div class="div-bottomText" style="font-family: U;">
+      <h2 style="text-decoration: underline; color: black;">Lorem susum</h2>
+      <p style="color: black">
+        Aenean fermentum risus id tortor. Integer malesuada. Nullam dapibus
+        fermentum ipsum. Quisque porta. Morbi scelerisque luctus velit. Fusce
+        tellus odio, dapibus id fermentum quis, suscipit id erat. In dapibus
+        augue non sapien. Vivamus luctus egestas leo. Integer in sapien. Vivamus
+        luctus egestas leo. Nullam faucibus mi quis velit. Temporibus autem
+        quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
+        ut et voluptates repudiandae sint et
+      </p>
+    </div>
+    <p
+      style="border-radius: 20px; border-width:3px; border-style:solid; border-color:#7C7C7C; padding: 0em; margin-left: 50px; margin-right: 350px"
+      class="line"
+    />
   </nav>
-
 </div>
 
 <style>
-	nav {
+  nav {
     background-color: rgba(0, 0, 0, 0.8);
     font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
     height: 45px;
-	border-radius: 15px;
-  	margin: auto;
- 	 border: 2px solid #000000;
+    border-radius: 15px;
+    margin: auto;
+    border: 2px solid #000000;
   }
 
   .inner {
-  max-width: 980px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin: auto;
+    max-width: 980px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: auto;
 
-  padding: 20px; 
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
 
   .mobile-icon {
     width: 25px;
@@ -230,96 +292,89 @@
     }
   }
 
-  .wallground{
-	background-color: #606064;
-	height: 2000;
-	width: 900;
+  .wallground {
+    background-color: #606064;
+    height: 2000;
+    width: 900;
   }
 
-  .div-topText{
-	
-	
-	background-color: #535363;
-  margin-left: 50px;
-  margin-right: 500px;
-  border-radius: 30px;
-	padding-right: 350px;
-	padding-left: 50px;
-	padding-top: 30px;
-	padding-bottom: 30px;
-	
-
+  .div-topText {
+    background-color: #535363;
+    margin-left: 50px;
+    margin-right: 500px;
+    border-radius: 30px;
+    padding-right: 350px;
+    padding-left: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
-  h1{
-	text-decoration: underline;
+  h1 {
+    text-decoration: underline;
   }
 
-  .div-newChall{
-  box-shadow: 15px 10px rgba(0, 0, 0, 0.3);
-	border-radius: 20px;
-	background-color: #535363;
-	width: 800px;
-	height: 500px;
-	padding-top: 20px;
-	padding-left: 20px;
-	margin-left: 50px;
-	margin-top: 90px;
-	
+  .div-newChall {
+    box-shadow: 15px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    background-color: #535363;
+    width: 800px;
+    height: 500px;
+    padding-top: 20px;
+    padding-left: 20px;
+    margin-left: 50px;
+    margin-top: 90px;
   }
-  .bar{
-	border-radius: 30px;
-	background-color: #424245;
-	width: 780px;
-	height: 40px;
-
+  .bar {
+    border-radius: 30px;
+    background-color: #424245;
+    width: 780px;
+    height: 40px;
   }
 
-  .redButton{
-	background-color: rgb(255, 0, 0);
-	width: 15px;
-	height: 15px;
-	border-radius: 30px;
-	margin-left: 750px;
-	
-	
+  .redButton {
+    background-color: rgb(255, 0, 0);
+    width: 15px;
+    height: 15px;
+    border-radius: 30px;
+    margin-left: 750px;
   }
-  .yellowButton{
-	background-color: rgb(251, 255, 0);
-	width: 15px;
-	height: 15px;
-	border-radius: 30px;
-	margin-left: 730px;
-	
+  .yellowButton {
+    background-color: rgb(251, 255, 0);
+    width: 15px;
+    height: 15px;
+    border-radius: 30px;
+    margin-left: 730px;
   }
-  .greenButton{
-	background-color: rgb(0, 255, 0);
-	width: 15px;
-	height: 15px;
-	border-radius: 30px;
-	margin-left: 710px;
-
+  .greenButton {
+    background-color: rgb(0, 255, 0);
+    width: 15px;
+    height: 15px;
+    border-radius: 30px;
+    margin-left: 710px;
   }
-  .searchBar{
-	background-color: #39393b;
-	width: 100px;
-	height: 20px;
-	
+  .searchBar {
+    background-color: #39393b;
+    width: 100px;
+    height: 20px;
   }
 
-  .div-bottomText{
-	
-	
-	
-	padding-right: 350px;
-	padding-left: 50px;
-	padding-top: 90px;
+  .div-bottomText {
+    padding-right: 350px;
+    padding-left: 50px;
+    padding-top: 90px;
   }
 
-  .background{
-  position: absolute;
-  display: block;
-  top: 0;
-  left: 0;
-  z-index: 0;
+  .background {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+  .magictext {
+    text-align: center !important;
+    text-shadow: #39393b;
+    color: purple;
+    font-weight: bold;
+    font-size: 30px;
   }
 </style>
