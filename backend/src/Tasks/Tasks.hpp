@@ -23,5 +23,4 @@ public:
     Tasks(const oatpp::String &sourceFolder);
     oatpp::List<oatpp::Object<webTaskDTO>> getAll();
     oatpp::Object<webTaskDTO> getById(const oatpp::UInt32 &id);
-    void createTask(const oatpp::Object<dbTaskDTO> &task);
 };
