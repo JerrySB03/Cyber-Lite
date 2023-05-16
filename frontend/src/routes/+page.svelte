@@ -299,14 +299,16 @@
   }
 
   .div-topText {
-    background-color: #535363;
+    background-color: #f4f4f7;
+    box-shadow: 15px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
     margin-left: 50px;
-    margin-right: 500px;
+    margin-right: 700px;
     border-radius: 30px;
-    padding-right: 350px;
+    padding-right: 20px;
     padding-left: 50px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 32px;
+    padding-bottom: 20px;
   }
   h1 {
     text-decoration: underline;
@@ -322,6 +324,7 @@
     padding-left: 20px;
     margin-left: 50px;
     margin-top: 90px;
+    margin-bottom: 90px;
   }
   .bar {
     border-radius: 30px;
@@ -335,21 +338,21 @@
     width: 15px;
     height: 15px;
     border-radius: 30px;
-    margin-left: 750px;
+    margin-left: 740px;
   }
   .yellowButton {
     background-color: rgb(251, 255, 0);
     width: 15px;
     height: 15px;
     border-radius: 30px;
-    margin-left: 730px;
+    margin-left: 720px;
   }
   .greenButton {
     background-color: rgb(0, 255, 0);
     width: 15px;
     height: 15px;
     border-radius: 30px;
-    margin-left: 710px;
+    margin-left: 700px;
   }
   .searchBar {
     background-color: #39393b;
@@ -358,9 +361,14 @@
   }
 
   .div-bottomText {
-    padding-right: 350px;
+    background-color: #f4f4f7;
+    box-shadow: 15px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    margin-left: 50px;
+    margin-right: 650px;
     padding-left: 50px;
-    padding-top: 90px;
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 
   .background {
