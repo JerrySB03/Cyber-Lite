@@ -29,7 +29,7 @@ public:
 private:
   Users m_Users; // Create users object
   Hash m_Hash;   // Create hash object
-  Tasks m_Tasks; // Create tasks object
+  Tasks m_Tasks = Tasks(TASKS_FOLDER); // Create tasks object
 public:
   static std::shared_ptr<Controller> createShared(
       OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objectMapper) // Inject objectMapper component here as default parameter
