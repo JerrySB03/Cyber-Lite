@@ -5,13 +5,7 @@
 
 <script>
 	import { readable } from 'svelte/store';
-	export const theme = readable('dark', (set) => {
-	  const media = window.matchMedia('(prefers-color-scheme: light)');
-	  set(media.matches ? 'light' : 'dark');
-  	  const listener = (e) => set(e.matches ? 'light' : 'dark');
-	  media.addListener(listener);
-	  return () => media.removeListener(listener);
-	});
+
 
 
 	import { onMount } from "svelte";
@@ -30,10 +24,9 @@
 	];
 
 	const handleMobileIconClick = () => (showMobileMenu = !showMobileMenu);
-	const mediaQueryHandler = e => {
-	if (!e.matches) {
+	const mediaQueryHandler= ()  => {
 		showMobileMenu = false;
-	}
+
 	};
 	onMount(() => {
 	const mediaListener = window.matchMedia("(max-width: 767px)");
@@ -48,7 +41,7 @@
 
 <nav>
 	<div class="inner">
-	  <div on:click={handleMobileIconClick} on:keydown={handleMobileIconKeydown} tabindex="0" class={`mobile-icon${showMobileMenu ? ' active' : ''}`}>
+	  <div on:click={handleMobileIconClick} tabindex="0" class={`mobile-icon${showMobileMenu ? ' active' : ''}`}>
 		<div class="middle-line"></div>
 	  </div>
 	  <ul class={`navbar-list${showMobileMenu ? ' mobile' : ''}`}>
@@ -90,9 +83,7 @@
 	</div>
 	<p style="border-radius: 20px; border-width:3px; border-style:solid; border-color:#7C7C7C; padding: 0em; margin-left: 50px; margin-right: 350px" class="line"></p>
   </nav>
-<div class:dark={$theme === 'dark'}>
 
-</div>
 
 <style>
 	nav {
