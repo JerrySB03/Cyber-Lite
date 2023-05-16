@@ -1,11 +1,9 @@
-<!-- Dark and Lightmode -->
-<link rel="stylesheet" href="dark-mode.css" media="(prefers-color-scheme: dark)" />
-<link rel="stylesheet" href="light-mode.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" />
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 
 
 <script>
 	import { readable } from 'svelte/store';
+  
   
 
 
@@ -42,8 +40,8 @@
 </script>
 
 
-<div class="backgroundImage">
-  <canvas class="background"></canvas>
+<div>
+
   <nav>
 	<div class="inner">
 	  <div on:click={handleMobileIconClick} tabindex="0" class={`mobile-icon${showMobileMenu ? ' active' : ''}`}>
@@ -57,7 +55,6 @@
 		{/each}
 	  </ul>
 	</div>
-	<div class="wallground"></div>
 	<p style="border-radius: 20px; border-width:3px; border-style:solid; border-color:#7C7C7C; padding: 0em; margin-left: 50px; margin-right: 350px" class="line"></p>
 	<div class="changeText">
 		<p></p>
@@ -81,7 +78,7 @@
 	</div>
 	<div class="shadow"></div>
 	<div class="div-bottomText" style="font-family: U;">
-		<h2 style="text-decoration: underline; color: black;">Lorem susum</h2>
+		<h2 style="text-decoration: underline; color: black; font-family: Ubuntu;">Lorem susum</h2>
 		<p style="color: black">Aenean fermentum risus id tortor. Integer malesuada. Nullam dapibus fermentum ipsum. Quisque porta. Morbi scelerisque luctus velit. Fusce tellus odio, dapibus id 
 			fermentum quis, suscipit id erat. In dapibus augue non sapien. Vivamus luctus egestas leo. Integer in sapien. Vivamus luctus egestas leo. Nullam faucibus mi quis 
 			velit. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et </p>
@@ -92,6 +89,8 @@
 </div>
 
 <style>
+  
+  
 	nav {
     background-color: rgba(0, 0, 0, 0.8);
     font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
@@ -238,14 +237,17 @@
 
   .div-topText{
 	
-	
-	background-color: #535363;
+    box-shadow: 15px 10px rgba(0, 0, 0, 0.3);
+	border-radius: 20px;
+	background-color: #f4f4f7;
   margin-left: 50px;
   margin-right: 500px;
+  margin-top: 30px;
+  margin-bottom: 20px;
   border-radius: 30px;
-	padding-right: 350px;
+	padding-right: 20px;
 	padding-left: 50px;
-	padding-top: 30px;
+	padding-top: 0px;
 	padding-bottom: 30px;
 	
 
@@ -264,6 +266,7 @@
 	padding-left: 20px;
 	margin-left: 50px;
 	margin-top: 90px;
+  margin-bottom: 90px;
 	
   }
   .bar{
@@ -279,7 +282,7 @@
 	width: 15px;
 	height: 15px;
 	border-radius: 30px;
-	margin-left: 750px;
+	margin-left: 740px;
 	
 	
   }
@@ -288,7 +291,7 @@
 	width: 15px;
 	height: 15px;
 	border-radius: 30px;
-	margin-left: 730px;
+	margin-left: 720px;
 	
   }
   .greenButton{
@@ -296,7 +299,7 @@
 	width: 15px;
 	height: 15px;
 	border-radius: 30px;
-	margin-left: 710px;
+	margin-left: 700px;
 
   }
   .searchBar{
@@ -307,12 +310,15 @@
   }
 
   .div-bottomText{
-	
-	
-	
-	padding-right: 350px;
+    box-shadow: 15px 10px rgba(0, 0, 0, 0.3);
+	border-radius: 20px;
+	background-color: #f4f4f7;
+  border-radius: 20px;
+  margin-right: 600px;
+	padding-right: 20px;
 	padding-left: 50px;
-	padding-top: 90px;
+	padding-top: 20px;
+  padding-bottom: 20px;
   }
 
   .background{
