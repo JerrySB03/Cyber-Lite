@@ -1,0 +1,36 @@
+{
+    "Questions": {
+        "Jak zabránit útočníkovy v tom aby o vás získal údaje ?": {
+            "Answers": {
+                "Nastavit své sociální účty jako soukromé.": {
+                    "Correct": true
+                },
+                "Nastavit své sociální účty jako věřejné.": {
+                    "Correct": false
+                },
+                "Stáhnout si Antivirus.":{
+                    "Correct": false
+                }
+            }
+        },
+        "Komu byste sdělili své heslo?":{
+            "Answers":{
+                "Komukoliv":
+                {
+                    "Correct" :false
+                },
+                "Zákazníkovy":
+                {
+                    "Correct":false
+                },
+                "Ověřený kolega":
+                {
+                    "Correct":true
+                }
+            }
+        },
+        "Jak nazýváme věřejně dostupné informace o nás? (zkratka, všechno velké)": {
+            "Answers": "OSINT"
+        }
+    }
+}
