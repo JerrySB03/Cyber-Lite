@@ -37,8 +37,12 @@ Tasks::Tasks(const oatpp::String &sourceFolder)
             }
             else
             {
+                if(dbResult->getErrorMessage()->find("UNIQUE constraint failed: tasks.name") == std::string::npos) //If the error is is that the task already exists, skip it
+                {
+                    continue;
+                }
                 OATPP_LOGE("Tasks", "Failed to create task \"%s\"", dto->name->c_str());
-                exit(0b10000000 | 0b00100000);
+                exit(0b10000000 | 0b00100000); // Database | Tasks
             }
         }
     }
@@ -55,6 +59,7 @@ int Tasks::getTaskData(std::filesystem::path taskDataPath, oatpp::Object<TaskDTO
 {
     if (!std::filesystem::is_directory(taskDataPath))
     {
+        OATPP_LOGE("Tasks", "Task \"%s\" is not a directory", taskDataPath.filename().string().c_str());
         return 1;
     }
     oatpp::String outCategories = oatpp::String();
