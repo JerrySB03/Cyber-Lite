@@ -17,5 +17,8 @@
 		"typescript": "^5.0.0",
 		"vite": "^4.3.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"svelte-use-form": "^2.6.2"
+	}
 }
