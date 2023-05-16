@@ -1,0 +1,16 @@
+.DS_Store
+node_modules
+build
+.svelte-kit
+package
+frontend/node_modules
+db.sqlite
+frontend/package
+.env
+.env.*
+!.env.example
+.vercel
+.output
+vite.config.js.timestamp-*
+/.vscode
+frontend/vite.config.js.timestamp-*
