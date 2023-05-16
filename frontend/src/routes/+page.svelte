@@ -4,13 +4,6 @@
 
 <script>
 	import { readable } from 'svelte/store';
-	export const theme = readable('dark', (set) => {
-	  const media = window.matchMedia('(prefers-color-scheme: light)');
-	  set(media.matches ? 'light' : 'dark');
-  	  const listener = (e) => set(e.matches ? 'light' : 'dark');
-	  media.addListener(listener);
-	  return () => media.removeListener(listener);
-	});
 
 
 	import { onMount } from "svelte";
@@ -29,10 +22,8 @@
 	];
 
 	const handleMobileIconClick = () => (showMobileMenu = !showMobileMenu);
-	const mediaQueryHandler = e => {
-	if (!e.matches) {
+	const mediaQueryHandler=() => {
 		showMobileMenu = false;
-	}
 	};
 	onMount(() => {
 	const mediaListener = window.matchMedia("(max-width: 767px)");
@@ -42,7 +33,7 @@
 </script>
 <nav>
 	<div class="inner">
-	  <div on:click={handleMobileIconClick} on:keydown={handleMobileIconKeydown} tabindex="0" class={`mobile-icon${showMobileMenu ? ' active' : ''}`}>
+	  <div on:click={handleMobileIconClick} tabindex="0" class={`mobile-icon${showMobileMenu ? ' active' : ''}`}>
 		<div class="middle-line"></div>
 	  </div>
 	  <ul class={`navbar-list${showMobileMenu ? ' mobile' : ''}`}>
@@ -54,9 +45,7 @@
 	  </ul>
 	</div>
   </nav>
-<div class:dark={$theme === 'dark'}>
 
-</div>
 
 <style>
 	nav {
