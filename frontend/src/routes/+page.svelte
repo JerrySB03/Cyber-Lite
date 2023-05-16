@@ -3,11 +3,13 @@
 <link rel="stylesheet" href="light-mode.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" />
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
 
+
 <script>
 	import { readable } from 'svelte/store';
+  
 
 
-
+  
 	import { onMount } from "svelte";
 
 	// Show mobile icon and display menu
@@ -34,12 +36,15 @@
 	mediaListener.addListener(mediaQueryHandler);
 	});
 
+  
+
 	
 </script>
 
 
-
-<nav>
+<div class="backgroundImage">
+  <canvas class="background"></canvas>
+  <nav>
 	<div class="inner">
 	  <div on:click={handleMobileIconClick} tabindex="0" class={`mobile-icon${showMobileMenu ? ' active' : ''}`}>
 		<div class="middle-line"></div>
@@ -58,9 +63,9 @@
 		<p></p>
 	</div>
 	<div class="div-topText">
-		<p style="border-radius: 20px; border-width:3px; border-style:solid; border-color: #7C7C7C; padding: 0em; " class="line"></p>
-		<h1 class="h1-mt; font-family: Ubuntu">Lorem ipsum</h1>
-		<p style="font-family: Ubuntu">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Fusce suscipit libero eget elit. Sed vel lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, 
+		
+		<h1 class="h1-mt; font-family: Ubuntu; color: black;">Lorem ipsum</h1>
+		<p style="font-family: Ubuntu; color: black;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Fusce suscipit libero eget elit. Sed vel lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, 
 			sem. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Aliquam erat volutpat. Cras pede 
 			libero, dapibus nec, pretium sit amet, tempor quis. Etiam bibendum elit eget erat. Duis condimentum augue id magna semper rutrum. In dapibus augue non sapien. 
 			Sed ac dolor sit amet purus malesuada congue. Maecenas fermentum, sem in pharetra.</p>
@@ -76,14 +81,15 @@
 	</div>
 	<div class="shadow"></div>
 	<div class="div-bottomText" style="font-family: U;">
-		<h2 style="text-decoration: underline;">Lorem susum</h2>
-		<p>Aenean fermentum risus id tortor. Integer malesuada. Nullam dapibus fermentum ipsum. Quisque porta. Morbi scelerisque luctus velit. Fusce tellus odio, dapibus id 
+		<h2 style="text-decoration: underline; color: black;">Lorem susum</h2>
+		<p style="color: black">Aenean fermentum risus id tortor. Integer malesuada. Nullam dapibus fermentum ipsum. Quisque porta. Morbi scelerisque luctus velit. Fusce tellus odio, dapibus id 
 			fermentum quis, suscipit id erat. In dapibus augue non sapien. Vivamus luctus egestas leo. Integer in sapien. Vivamus luctus egestas leo. Nullam faucibus mi quis 
 			velit. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et </p>
 	</div>
 	<p style="border-radius: 20px; border-width:3px; border-style:solid; border-color:#7C7C7C; padding: 0em; margin-left: 50px; margin-right: 350px" class="line"></p>
   </nav>
 
+</div>
 
 <style>
 	nav {
@@ -233,11 +239,14 @@
   .div-topText{
 	
 	
-	color: #fff;
+	background-color: #535363;
+  margin-left: 50px;
+  margin-right: 500px;
+  border-radius: 30px;
 	padding-right: 350px;
 	padding-left: 50px;
-	padding-top: 70px;
-	
+	padding-top: 30px;
+	padding-bottom: 30px;
 	
 
   }
@@ -246,6 +255,7 @@
   }
 
   .div-newChall{
+  box-shadow: 15px 10px rgba(0, 0, 0, 0.3);
 	border-radius: 20px;
 	background-color: #535363;
 	width: 800px;
@@ -299,9 +309,17 @@
   .div-bottomText{
 	
 	
-	color: #fff;
+	
 	padding-right: 350px;
 	padding-left: 50px;
 	padding-top: 90px;
+  }
+
+  .background{
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  z-index: 0;
   }
 </style>
