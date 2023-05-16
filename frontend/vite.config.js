@@ -1,7 +1,7 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
-const defineConfig ={
+const config ={
 	plugins: [sveltekit()],
     server: {
         proxy: {
@@ -18,4 +18,4 @@ const defineConfig ={
 };
 
 
-export default defineConfig;
+export default config;
