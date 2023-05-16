@@ -23,21 +23,20 @@ Tasks::Tasks(const oatpp::String &sourceFolder)
                 OATPP_LOGV("Tasks", "Skipping task \"%s\"", std::filesystem::path(taskData).filename().string().erase(0, 1).c_str());
                 continue;
             }
-            auto dto = TaskDTO::createShared();
-            oatpp::String categories = oatpp::String();
-            auto rc = getTaskData(taskData.path(), dto, categories);
+            auto dto = dbTaskDTO::createShared();
+            auto rc = getTaskData(taskData.path(), dto);
             if (rc) // Will return 0 if successfull
             {
                 exit(rc);
             }
-            auto dbResult = database->createTask(dto, categories);
+            auto dbResult = database->createTask(dto);
             if (dbResult->isSuccess())
             {
-                OATPP_LOGI("Tasks", "Succesfully loaded task \"%s\"", dto->name->c_str());
+                OATPP_LOGV("Tasks", "Succesfully loaded task \"%s\"", dto->name->c_str());
             }
             else
             {
-                if(dbResult->getErrorMessage()->find("UNIQUE constraint failed: tasks.name") == std::string::npos) //If the error is is that the task already exists, skip it
+                if (dbResult->getErrorMessage()->find("UNIQUE constraint failed: tasks.name") == std::string::npos) // If the error is is that the task already exists, skip it
                 {
                     continue;
                 }
@@ -51,19 +50,17 @@ Tasks::Tasks(const oatpp::String &sourceFolder)
         OATPP_LOGE(sourceFolder + "/", "Directory doesn't exist");
         exit(0b00100000 | 0b00000001); // Tasks | doesn't exist
     }
-    auto dto = TaskDTO::createShared();
-    oatpp::String categories = oatpp::String();
-    database->createTask(dto, categories);
+    auto dto = dbTaskDTO::createShared();
+    database->createTask(dto);
 }
-int Tasks::getTaskData(std::filesystem::path taskDataPath, oatpp::Object<TaskDTO> &dto, oatpp::String &categories)
+int Tasks::getTaskData(std::filesystem::path taskDataPath, oatpp::Object<dbTaskDTO> &dto)
 {
     if (!std::filesystem::is_directory(taskDataPath))
     {
         OATPP_LOGE("Tasks", "Task \"%s\" is not a directory", taskDataPath.filename().string().c_str());
         return 1;
     }
-    oatpp::String outCategories = oatpp::String();
-    auto outDto = TaskDTO::createShared();
+    auto outDto = dbTaskDTO::createShared();
     outDto->name = taskDataPath.filename().string();
     OATPP_LOGV("Tasks", "Loading task \"%s\"", outDto->name->c_str())
     for (const auto &taskData : std::filesystem::directory_iterator(taskDataPath))
@@ -95,7 +92,7 @@ int Tasks::getTaskData(std::filesystem::path taskDataPath, oatpp::Object<TaskDTO
             {
                 if (filename == "CATEGORIES")
                 {
-                    outCategories = file::readFile(std::filesystem::path(taskData));
+                    outDto->categories = file::readFile(std::filesystem::path(taskData));
                 }
                 else if (filename == "CONTENT.md")
                 {
@@ -119,34 +116,60 @@ int Tasks::getTaskData(std::filesystem::path taskDataPath, oatpp::Object<TaskDTO
             }
         }
     }
-    if (outDto->content == nullptr || outDto->description == nullptr || outCategories == nullptr)
+    if (outDto->content == nullptr || outDto->description == nullptr || outDto->categories == nullptr)
     {
         OATPP_LOGE("Tasks", "Task \"%s\" is missing data", outDto->name->c_str());
         return (0b00100000 | 0b00000010);
     }
     dto = outDto;
-    categories = outCategories;
     return 0;
 }
-oatpp::List<oatpp::Object<TaskDTO>> Tasks::getAll()
+oatpp::List<oatpp::Object<webTaskDTO>> Tasks::getAll()
 {
     auto dbResult = database->getAllTasks();
     OATPP_ASSERT_HTTP(dbResult->isSuccess(), Status::CODE_500, dbResult->getErrorMessage());
 
-    auto result = dbResult->fetch<oatpp::List<oatpp::Object<TaskDTO>>>();
-
-    return result;
+    auto result = dbResult->fetch<oatpp::List<oatpp::Object<dbTaskDTO>>>();
+    oatpp::List<oatpp::Object<webTaskDTO>> outDto = oatpp::List<oatpp::Object<webTaskDTO>>::createShared();
+    for (auto dto : *result)
+    {
+        outDto->push_back(this->convertToWebDTO(dto));
+    }
+    return outDto;
 }
 
-oatpp::Object<TaskDTO> Tasks::getById(const oatpp::UInt32 &id)
+oatpp::Object<webTaskDTO> Tasks::getById(const oatpp::UInt32 &id)
 {
     auto dbResult = database->getTaskById(id);
 
     OATPP_ASSERT_HTTP(dbResult->isSuccess(), Status::CODE_500, dbResult->getErrorMessage());
     OATPP_ASSERT_HTTP(dbResult->hasMoreToFetch(), Status::CODE_404, "Task with id " + std::to_string(id) + " doesn't exist");
 
-    auto result = dbResult->fetch<oatpp::Vector<oatpp::Object<TaskDTO>>>();
+    auto result = dbResult->fetch<oatpp::Vector<oatpp::Object<dbTaskDTO>>>();
     OATPP_ASSERT_HTTP(result->size() == 1, Status::CODE_500, "Unknown error");
 
-    return result[0];
+    return this->convertToWebDTO(result[0]);
+}
+oatpp::Object<webTaskDTO> Tasks::convertToWebDTO(const oatpp::Object<dbTaskDTO> &dto)
+{
+    auto outDto = webTaskDTO::createShared();
+    outDto->id = dto->id;
+    outDto->name = dto->name;
+    outDto->description = dto->description;
+    outDto->content = dto->content;
+    outDto->categories = oatpp::List<oatpp::String>::createShared(); // Initialize categories list
+    std::string current;
+    for (const char &c : *dto->categories)
+    {
+        if (c == ';')
+        {
+            outDto->categories->push_back(current);
+            current = "";
+        }
+        else
+        {
+            current += c;
+        }
+    }
+    return outDto;
 }

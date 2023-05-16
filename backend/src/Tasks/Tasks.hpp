@@ -17,10 +17,10 @@ private:
 
     OATPP_COMPONENT(std::shared_ptr<Database>, database); // Get database component
 
-    int getTaskData(std::filesystem::path taskDataPath, oatpp::Object<TaskDTO> &dto, oatpp::String &categories);
+    int getTaskData(std::filesystem::path taskDataPath, oatpp::Object<dbTaskDTO> &dto);
+    oatpp::Object<webTaskDTO> convertToWebDTO(const oatpp::Object<dbTaskDTO> &dto);
 public:
     Tasks(const oatpp::String &sourceFolder);
-    oatpp::List<oatpp::Object<TaskDTO>> getAll();
-    oatpp::Object<TaskDTO> getById(const oatpp::UInt32 &id);
-    void createTask(const oatpp::Object<TaskDTO> &task);
+    oatpp::List<oatpp::Object<webTaskDTO>> getAll();
+    oatpp::Object<webTaskDTO> getById(const oatpp::UInt32 &id);
 };
