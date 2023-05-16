@@ -5,7 +5,10 @@
 #include <oatpp/core/Types.hpp>
 #include <oatpp/web/protocol/http/Http.hpp>
 #include <oatpp/core/macro/component.hpp>   
+#include <sstream>
 #include <filesystem>
+#include <fstream>
+#include <map>
 
 class Tasks
 {
