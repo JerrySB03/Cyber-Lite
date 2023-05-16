@@ -28,7 +28,7 @@ add_definitions(
         -DDATABASE_MIGRATIONS="${CMAKE_CURRENT_SOURCE_DIR}/sql"
 
         ## Path to tasks folder
-        -DTASKS_FOLDER="${CMAKE_CURRENT_SOURCE_DIR}../tasks"
+        -DTASKS_FOLDER="${CMAKE_CURRENT_SOURCE_DIR}/../tasks"
 )
 include(CTest)
 #enable_testing()

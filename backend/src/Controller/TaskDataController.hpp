@@ -9,7 +9,7 @@
 #include <oatpp/web/mime/multipart/FileProvider.hpp>
 #include <oatpp/web/mime/multipart/InMemoryDataProvider.hpp>
 #include <oatpp/web/mime/multipart/Reader.hpp>
-#include "oatpp/web/mime/multipart/PartList.hpp>
+#include <oatpp/web/mime/multipart/PartList.hpp>
 
 #include OATPP_CODEGEN_BEGIN(ApiController) //<- Begin Codegen
 
@@ -40,7 +40,7 @@ public:
     {
         return createResponse(Status::CODE_200, "<h1>Here are the data stored for the tasks</h1>");
     }
-    /*ENDPOINT_INFO(getTaskData)
+    ENDPOINT_INFO(getTaskData)
     {
         info->addResponse<Object<TaskDTO>>(Status::CODE_200, "application/json");
     }
@@ -49,7 +49,7 @@ public:
         PATH(String, filename, "filename"))
     {
             
-    }*/
+    }
 };
 #include OATPP_CODEGEN_END(ApiController) //<- Begin Codegen
 
