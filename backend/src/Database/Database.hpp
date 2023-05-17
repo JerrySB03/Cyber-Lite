@@ -68,9 +68,9 @@ public:
       
       QUERY(createTask,
             "INSERT INTO Tasks"
-            "(name, description) VALUES "
-            "(:task.name, :task.description);",
-            PARAM(oatpp::Object<TaskDTO>, task))
+            "(name, description, categories) VALUES "
+            "(:task.name, :task.description, :task.categories);",
+            PARAM(oatpp::Object<dbTaskDTO>, task))
       QUERY(getTaskById,
             "SELECT * "
             " FROM TASKS "

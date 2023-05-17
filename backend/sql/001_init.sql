@@ -6,7 +6,8 @@ CREATE TABLE Users (
     salt VARCHAR,
     token VARCHAR,
     config VARCHAR,
-    token_expiration TIMESTAMP
+    token_expiration TIMESTAMP,
+    last_test TIMESTAMP
 );
 INSERT INTO Users (username, email, hash, salt)
 VALUES (
@@ -18,7 +19,8 @@ VALUES (
 --Password is 'test'
 CREATE TABLE Tasks (
     id INTEGER PRIMARY KEY,
-    name VARCHAR NOT NULL,
+    name VARCHAR UNIQUE NOT NULL,
     description VARCHAR,
+    content VARCHAR,
     categories VARCHAR
 );

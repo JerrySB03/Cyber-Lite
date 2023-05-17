@@ -1,0 +1,19 @@
+{
+    "Questions": {
+        "ABC: What is the answer to life, the universe, and everything?": {
+            "Answers": {
+                "42": {
+                    "Correct": true,
+                    "Message": "Correct!"
+                },
+                "43": {
+                    "Correct": false,
+                    "Message": "Incorrect!"
+                }
+            }
+        },
+        "TEXT: What is the answer to life, the universe, and everything?": {
+            "Answers": "42"
+        }
+    }
+}

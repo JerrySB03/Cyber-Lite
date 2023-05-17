@@ -13,7 +13,7 @@
 #include <oatpp/web/protocol/http/incoming/BodyDecoder.hpp>
 #include <oatpp/web/protocol/http/Http.hpp>
 
-  #include OATPP_CODEGEN_BEGIN(ApiController) //<- Begin Codegen
+#include OATPP_CODEGEN_BEGIN(ApiController) //<- Begin Codegen
 
 /**
  * User REST API controller.
@@ -27,9 +27,9 @@ public:
   }
 
 private:
-  Users m_Users; // Create users object
-  Hash m_Hash;   // Create hash object
-  Tasks m_Tasks; // Create tasks object
+  Users m_Users;                       // Create users object
+  Hash m_Hash;                         // Create hash object
+  Tasks m_Tasks = Tasks(TASKS_FOLDER); // Create tasks object
 public:
   static std::shared_ptr<Controller> createShared(
       OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objectMapper) // Inject objectMapper component here as default parameter
@@ -157,14 +157,28 @@ public:
     OATPP_LOGD("validateToken", "token: %s", token->c_str());
     return createResponse(Status::CODE_200, std::to_string((uint8_t)m_Users.validateToken(token, id)));
   }
-  ENDPOINT_INFO(getAllTasks){
+  ENDPOINT_INFO(getAllTasks)
+  {
     info->summary = "Get all tasks from the database";
     info->addResponse<Object<NestedTasksDTO>>(Status::CODE_200, "application/json");
   }
-  ENDPOINT("GET", "/api/tasks/getall", getAllTasks){
+  ENDPOINT("GET", "/api/tasks/getall", getAllTasks)
+  {
     oatpp::Object<NestedTasksDTO> dto = oatpp::Object<NestedTasksDTO>::createShared();
     dto->Tasks = m_Tasks.getAll();
     return createDtoResponse(Status::CODE_200, dto);
+  }
+  ENDPOINT_INFO(getTaskById)
+  {
+    info->summary = "Get one task by its id";
+    info->addResponse<Object<webTaskDTO>>(Status::CODE_200, "application/json");
+    info->addResponse<Object<StatusDto>>(Status::CODE_404, "application/json");
+    info->addResponse<Object<StatusDto>>(Status::CODE_500, "application/json");
+  }
+  ENDPOINT("GET", "/api/tasks/{taskId}", getTaskById,
+           PATH(UInt32, id, "taskId"))
+  {
+    return createDtoResponse(Status::CODE_200, m_Tasks.getById(id));
   }
 };
 

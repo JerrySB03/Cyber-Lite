@@ -36,6 +36,7 @@ namespace hash
 bool Users::validateToken(const oatpp::String &token, const oatpp::UInt32 &id){
     auto dbResult = database->getUserById(id);
     OATPP_ASSERT_HTTP(dbResult->isSuccess(), Status::CODE_500, dbResult->getErrorMessage());
+    OATPP_ASSERT_HTTP(dbResult->hasMoreToFetch(), Status::CODE_404, "User with id " + std::to_string(id) + " doesn't exist")
 
     auto result = dbResult->fetch<oatpp::Vector<oatpp::Object<UserDTO>>>();
     OATPP_ASSERT_HTTP(result->size() == 1, Status::CODE_500, "Unknown error - userId returned multible outputs");
