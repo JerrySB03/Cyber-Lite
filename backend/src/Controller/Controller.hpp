@@ -180,6 +180,18 @@ public:
   {
     return createDtoResponse(Status::CODE_200, m_Tasks.getById(id));
   }
+  ENDPOINT_INFO(taskQuestionsByID){
+    info->summary = "Get all questions from a task by its id";
+    info->addResponse<String>(Status::CODE_200, "application/json");
+    info->addResponse<Object<StatusDto>>(Status::CODE_404, "application/json");
+    info->addResponse<Object<StatusDto>>(Status::CODE_500, "application/json");
+    info->pathParams["taskId"].description = "Task\'s id to get the questions";
+  }
+  ENDPOINT("GET", "/api/tasks/{taskId}/questions", taskQuestionsByID,
+           PATH(UInt32, id, "taskId"))
+  {
+    return createResponse(Status::CODE_200, m_Tasks.getQuestionsById(id));
+  }
 };
 
 #include OATPP_CODEGEN_END(ApiController) //<- End Codegen

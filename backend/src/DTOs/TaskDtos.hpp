@@ -20,11 +20,13 @@ class dbTaskDTO : public oatpp::DTO
         info->required = false;
     }
     DTO_FIELD_INFO(content) { info->description = "Task displayed formatted content"; };
+    DTO_FIELD_INFO(questions) { info->description = "Task questions"; };
     DTO_FIELD(Int32, id);
     DTO_FIELD(String, name);
     DTO_FIELD(String, description);
     DTO_FIELD(String, categories);
     DTO_FIELD(String, content);
+    DTO_FIELD(String, questions);
 };
 class webTaskDTO : public oatpp::DTO
 {
@@ -39,11 +41,13 @@ class webTaskDTO : public oatpp::DTO
         info->required = false;
     }
     DTO_FIELD_INFO(content) { info->description = "Task displayed formatted content"; };
+    DTO_FIELD_INFO(questions) { info->description = "Task questions"; };
     DTO_FIELD(Int32, id);
     DTO_FIELD(String, name);
     DTO_FIELD(String, description);
     DTO_FIELD(List<String>, categories);
     DTO_FIELD(String, content);
+    DTO_FIELD(String, questions);
 };
 class NestedTasksDTO : public oatpp::DTO
 {
