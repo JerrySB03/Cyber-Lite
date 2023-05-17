@@ -81,58 +81,71 @@
     searchBarWidth = Math.min(600, window.innerWidth - 400); // Set maximum width to 600px
   }
 </script>
-
-<nav>
-  <div class="inner">
-    <div
-      on:click={handleMobileIconClick}
-      tabindex="0"
-      class={`mobile-icon${showMobileMenu ? " active" : ""}`}
-    >
-      <div class="middle-line" />
+<div class="background" style="background-image: url('file:///home/jumanji/Documents/Code/Cyber-Lite/frontend/static/Hory.jpg');">
+  <nav>
+    <div class="inner">
+      <div
+        on:click={handleMobileIconClick}
+        tabindex="0"
+        class={`mobile-icon${showMobileMenu ? " active" : ""}`}
+      >
+        <div class="middle-line" />
+      </div>
+      <ul class={`navbar-list${showMobileMenu ? " mobile" : ""}`}>
+        {#each navItems as item}
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        {/each}
+      </ul>
     </div>
-    <ul class={`navbar-list${showMobileMenu ? " mobile" : ""}`}>
-      {#each navItems as item}
-        <li>
-          <a href={item.href}>{item.label}</a>
-        </li>
-      {/each}
-    </ul>
-  </div>
-</nav>
-<div class="search-container">
-  <div class="search-bar" style="width: {searchBarWidth}px;">
-    <input
-      type="text"
-      bind:value={searchTerm}
-      placeholder="Enter your search term"
-      on:input={handleSearch}
-    />
-    <button on:click={handleSearch}>Search</button>
-  </div>
-  <div class="grey-box" />
+  </nav>
+  <div class="search-container">
+    <div class="search-bar" style="width: {searchBarWidth}px;">
+      <input
+        type="text"
+        bind:value={searchTerm}
+        placeholder="Enter your search term"
+        on:input={handleSearch}
+      />
+      <button on:click={handleSearch}>Search</button>
+    </div>
+    <div class="grey-box" />
 
-  {#if searchResults.length > 0}
-    <ul class="search-results">
-      {#each searchResults as result}
-        <li>
-          <a href={result.link}>
-            <span>{result.name}</span>
-            <p>{result.des}</p>
-          </a>
-        </li>
-      {/each}
-    </ul>
-  {/if}
+    {#if searchResults.length > 0}
+      <ul class="search-results">
+        {#each searchResults as result}
+          <li>
+            <a href={result.link}>
+              <span>{result.name}</span>
+              <p>{result.des}</p>
+            </a>
+          </li>
+        {/each}
+      </ul>
+    {/if}
+  </div>
 </div>
-
 <style>
+  .background{
+    
+    
+    height: 1400px
+    
+  }
+
   .particles {
     position: relative;
     width: 1700px;
     height: 1000px;
   }
   .search-container {
+    background-color: #424245;
+    border-radius: 20px;
+    padding-left: 30px;
+    padding-top: 15px;
+    padding-right: 30px;
+    box-shadow: 15px 10px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -146,6 +159,12 @@
   }
 
   .search-bar {
+    background-color: #393939;
+    padding-left: 100px;
+    padding-right: 100px;
+    border-radius: 20px;
+    padding-top: 7px;
+    padding-bottom: 7px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -173,6 +192,8 @@
   }
 
   .grey-box {
+    border-radius: 10px;
+    margin-bottom: 10px;
     width: 100%;
     height: 8px;
     background-color: #ccc;
@@ -190,14 +211,14 @@
 
   .search-results a {
     display: block;
-    color: #333;
+    color: #ffffff;
     text-decoration: none;
     font-weight: bold;
   }
 
   .search-results p {
     margin-top: 4px;
-    color: #666;
+    color: #ffffff;
   }
 
   nav {
