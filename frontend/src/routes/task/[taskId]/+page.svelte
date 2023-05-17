@@ -1,4 +1,3 @@
-<!--<script>console.log("heehee");</script>-->
 
 <script>
     import { onMount } from "svelte";
@@ -23,6 +22,67 @@
         data = await response.json();
         return data;
     }
+    ///----------------API---------------
+     let questions = []; // Initialize an empty array to store the questions
+  let answers = {}; // Object to store user answers
+  let currentIndex = 0; // Initialize the current question index
+
+  // Simulated API response
+  const apiResponse = {
+    "questions": [
+      {
+        "question": "What is the answer to everything?",
+        "type": "ABC",
+        "answers": ["41", "42", "43"]
+      },
+      {
+        "question": "What is the answer to everything?",
+        "type": "TEXT"
+      },
+      {
+        "question": "What is the answer to everything?",
+        "type": "SELECTION",
+        "text": "The answer could be 41, 42, or maybe even 43"
+      }
+    ]
+  };
+
+  // Simulated API call to fetch the questions
+  function fetchQuestions() {
+    // In a real scenario, you would make an actual API call here
+    questions = apiResponse.questions;
+  }
+
+  // Function to handle selecting an answer
+  function selectAnswer(event) {
+    const { name, value } = event.target;
+    answers[name] = value;
+  }
+
+  // Function to handle submitting the form
+  function submitForm() {
+    const formattedAnswers = {};
+    for (let i = 0; i < questions.length; i++) {
+      const question = questions[i];
+      const answerKey = `${i + 1}`;
+      if (question.type === "ABC") {
+        formattedAnswers[answerKey] = parseInt(answers[`answer_${i}`]);
+      } else if (question.type === "TEXT") {
+        formattedAnswers[answerKey] = answers[`text_${i}`];
+      }
+    }
+    const submission = {
+      answers: formattedAnswers
+    };
+    console.log(submission);
+  }
+    onMount(fetchQuestions);
+
+
+  // Fetch the questions when the component is mounted
+
+
+
 </script>
 
 <!--<script>document.title = "bruh nigga";</script>-->
@@ -205,6 +265,29 @@
                 </md-span>
             </p>
         </md-block>
+    </div>
+    <div>
+        {#if questions.length > 0}
+    <form on:submit|preventDefault={submitForm}>
+      {#each questions as question, index}
+        {#if question.type === "ABC"}
+          <h3>{question.question}</h3>
+          {#each question.answers as answer}
+            <label>
+              <input type="radio" name={`answer_${index}`} value={answer} on:change={selectAnswer} checked={answers[`answer_${index}`] === answer} />
+              {answer}
+            </label>
+          {/each}
+        {:else if question.type === "TEXT"}
+          <h3>{question.question}</h3>
+          <input type="text"  on:input={event => selectAnswer({ target: event.target, name: `text_${index}` })} />
+        {/if}
+      {/each}
+      <button type="submit">Submit</button>
+    </form>
+  {:else}
+    <p>Loading questions...</p>
+  {/if}
     </div>
 </div>
 
