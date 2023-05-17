@@ -20,7 +20,7 @@ VALUES (
 CREATE TABLE Tasks (
     id INTEGER PRIMARY KEY,
     name VARCHAR UNIQUE NOT NULL,
-    tasks VARCHAR,
+    description VARCHAR,
     content VARCHAR,
     categories VARCHAR
 );
