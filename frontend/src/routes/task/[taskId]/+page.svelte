@@ -1,20 +1,16 @@
-<!--<script>console.log("heehee");</script>-->
-
 <script>
     import { onMount } from "svelte";
     import { page } from "$app/stores";
+    import SvelteMarkdown from "svelte-markdown";
     let data = {
         name: "Loading...",
-        description: "Loading...",
-        content: "# Loading...",
+        description: "Loading",
+        content: "Loading",
     };
-
     onMount(() => {
         page.subscribe((value) => {
             const { params } = value;
-            console.log(data.name);
             data = fetchData(params.taskId);
-            console.log(data.name);
         });
     });
 
@@ -24,8 +20,6 @@
         return data;
     }
 </script>
-
-<!--<script>document.title = "bruh nigga";</script>-->
 
 <svelte:head>
     <link
@@ -179,9 +173,12 @@
     <md-block class="MD" style="margin-top: 28px;">
         <!--style="margin-left: 16px; margin-right: 16px; margin-top: 64px;"-->
         <p class="MD">
-            {data.content}
-        </p>
-    </md-block>
+            {#if data.content == "Loading"}
+                Loading...
+            {:else}
+                <SvelteMarkdown source={data.content} />
+            {/if}
+        </p></md-block>
 </div>
 <div>
     <!-- right - answers -->
@@ -199,10 +196,12 @@
             style="background-color: rgb(62, 185, 4); margin-right: 12px; "
         />
         <md-block class="MD" style="margin-top: 28px;">
-            <p class="MD">
-                <md-span>
-                    {data.content}
-                </md-span>
+            <p class="MD" id="content">
+                {#if data.description == "Loading"}
+                    Loading...
+                {:else}
+                    <SvelteMarkdown source={data.description} />
+                {/if}
             </p>
         </md-block>
     </div>
