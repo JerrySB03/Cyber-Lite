@@ -1,5 +1,6 @@
 #include "Database/Database.hpp"
 #include "DTOs/TaskDtos.hpp"
+#include "Questions/Questions.hpp"
 
 #include <oatpp/core/data/mapping/type/Vector.hpp>
 #include <oatpp/core/Types.hpp>
@@ -10,7 +11,6 @@
 #include <sstream>
 #include <filesystem>
 #include <fstream>
-#include <map>
 
 class Tasks
 {
@@ -21,6 +21,8 @@ private:
 
     int getTaskData(std::filesystem::path taskDataPath, oatpp::Object<dbTaskDTO> &dto);
     oatpp::Object<webTaskDTO> convertToWebDTO(const oatpp::Object<dbTaskDTO> &dto);
+
+    Questions m_Questions;
 public:
     Tasks(const oatpp::String &sourceFolder);
     oatpp::List<oatpp::Object<webTaskDTO>> getAll();
