@@ -10,7 +10,7 @@
     { label: "CyberLite", href: "#" },
     { label: "Home", href: "#" },
     { label: "Item 2", href: "#" },
-    { label: "Úlohy", href: "/task" },
+    { label: "Úlohy", href: "/dash" },
     { label: "O nás", href: "#aboutus" },
     { label: "Login", href: "/login" },
   ];

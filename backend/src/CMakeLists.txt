@@ -22,7 +22,6 @@ add_executable(${project_name}-exe
     App.cpp    
 )
 
-# Link the library to oatpp and nlohmann_json
 target_link_libraries(${project_name}-core
         PUBLIC oatpp::oatpp
         PUBLIC oatpp::oatpp-sqlite
