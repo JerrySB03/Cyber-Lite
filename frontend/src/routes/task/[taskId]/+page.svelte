@@ -60,10 +60,427 @@
 
   // Function to handle submitting the form
   function submitForm() {
-    // Handle form submission logic here
-    console.log("Form submitted");
-    console.log(answers); // Print user answers
+    const formattedAnswers = {};
+    for (let i = 0; i < questions.length; i++) {
+      const question = questions[i];
+      const answerKey = `${i + 1}`;
+      if (question.type === "ABC") {
+        formattedAnswers[answerKey] = parseInt(answers[`answer_${i}`]);
+      } else if (question.type === "TEXT") {
+        formattedAnswers[answerKey] = answers[`text_${i}`];
+      }
+    }
+    const submission = {
+      answers: formattedAnswers
+    };
+    console.log(submission);
   }
+
+  // Fetch the questions when the component is mounted
+  import { onMount } from "svelte";
+  onMount(fetchQuestions);
+</script>
+
+<main>
+  {#if questions.length > 0}
+    <form on:submit|preventDefault={submitForm}>
+      {#each questions as question, index}
+        {#if question.type === "ABC"}
+          <h3>{question.question}</h3>
+          {#each question.answers as answer}
+            <label>
+              <input type="radio" name={`answer_${index}`} value={answer} on:change={selectAnswer} checked={answers[`answer_${index}`] === answer} />
+              {answer}
+            </label>
+          {/each}
+        {:else if question.type === "TEXT"}
+          <h3>{question.question}</h3>
+          <input type="text" bind:value={answers[`text_${index}`] || ''} on:input={selectAnswer} />
+        {/if}
+      {/each}
+      <button type="submit">Submit</button>
+    </form>
+  {:else}
+    <p>Loading questions...</p>
+  {/if}
+</main>
+
+<style>
+  /* Add your custom styling here */
+</style>
+In this updated code, after the form submission, we iterate over the questions to format the answers object as desired. The formatted answers object is then logged to the console.
+
+Note that for the ABC type of question, the selected answer is parsed as an integer using parseInt to match the desired format.
+
+Please give it a try and let me know if it meets your requirements.
+
+
+
+
+
+User
+/src/routes/task/[taskId]/+page.svelte:281:33 Can only bind to an identifier (e.g. `foo`) or a member expression (e.g. `foo.bar` or `foo[baz]`)
+/src/routes/task/[taskId]/+page.svelte:281:33
+279 |              {:else if question.type === "TEXT"}
+ 280 |                <h3>{question.question}</h3>
+ 281 |                <input type="text" bind:value={answers[`text_${index}`] || ''} on:input={selectAnswer} />
+                                         ^
+ 282 |              {/if}
+ 283 |            {/each}
+ChatGPT
+Apologies for the mistake. To resolve the issue, we need to update the binding expression for the input field inside the else if block.
+
+Here's the corrected code:
+
+svelte
+Copy code
+<script>
+  let questions = []; // Initialize an empty array to store the questions
+  let answers = {}; // Object to store user answers
+  let currentIndex = 0; // Initialize the current question index
+
+  // Simulated API response
+  const apiResponse = {
+    "questions": [
+      {
+        "question": "What is the answer to everything?",
+        "type": "ABC",
+        "answers": ["41", "42", "43"]
+      },
+      {
+        "question": "What is the answer to everything?",
+        "type": "TEXT"
+      },
+      {
+        "question": "What is the answer to everything?",
+        "type": "SELECTION",
+        "text": "The answer could be 41, 42, or maybe even 43"
+      }
+    ]
+  };
+
+  // Simulated API call to fetch the questions
+  function fetchQuestions() {
+    // In a real scenario, you would make an actual API call here
+    questions = apiResponse.questions;
+  }
+
+  // Function to handle selecting an answer
+  function selectAnswer(event) {
+    const { name, value } = event.target;
+    answers[name] = value;
+  }
+
+  // Function to handle submitting the form
+  function submitForm() {
+    const formattedAnswers = {};
+    for (let i = 0; i < questions.length; i++) {
+      const question = questions[i];
+      const answerKey = `${i + 1}`;
+      if (question.type === "ABC") {
+        formattedAnswers[answerKey] = parseInt(answers[`answer_${i}`]);
+      } else if (question.type === "TEXT") {
+        formattedAnswers[answerKey] = answers[`text_${i}`];
+      }
+    }
+    const submission = {
+      answers: formattedAnswers
+    };
+    console.log(submission);
+  }
+
+  // Fetch the questions when the component is mounted
+  import { onMount } from "svelte";
+  onMount(fetchQuestions);
+</script>
+
+<main>
+  {#if questions.length > 0}
+    <form on:submit|preventDefault={submitForm}>
+      {#each questions as question, index}
+        {#if question.type === "ABC"}
+          <h3>{question.question}</h3>
+          {#each question.answers as answer}
+            <label>
+              <input type="radio" name={`answer_${index}`} value={answer} on:change={selectAnswer} checked={answers[`answer_${index}`] === answer} />
+              {answer}
+            </label>
+          {/each}
+        {:else if question.type === "TEXT"}
+          <h3>{question.question}</h3>
+          <input type="text" bind:value={answers[`text_${index}`] || ''} on:input={event => selectAnswer({ target: event.target, name: `text_${index}` })} />
+        {/if}
+      {/each}
+      <button type="submit">Submit</button>
+    </form>
+  {:else}
+    <p>Loading questions...</p>
+  {/if}
+</main>
+
+<style>
+  /* Add your custom styling here */
+</style>
+In the updated code, the binding expression for the input field inside the else if block has been corrected. It now uses a lambda function in the on:input event to pass both the event and the name value to the selectAnswer function.
+
+Please give it a try, and let me know if you have any further issues.
+
+
+
+
+
+User
+everythink looks good however theres a small issue the second object shows it self in the send object as undefined bcs it is a string 
+ChatGPT
+To resolve the issue of the second object showing as undefined in the submitted object, you can modify the selectAnswer function to handle the case when the input type is "TEXT". In this case, you can set the value as an empty string if it's undefined.
+
+Here's the updated selectAnswer function:
+
+svelte
+Copy code
+// Function to handle selecting an answer
+function selectAnswer(event) {
+  const { name, value } = event.target;
+  if (value === undefined) {
+    answers[name] = '';
+  } else {
+    answers[name] = value;
+  }
+}
+With this update, when the input type is "TEXT" and the value is undefined, it will set the answer as an empty string. This ensures that the second object doesn't appear as undefined in the submitted object.
+
+Give it a try and let me know if it resolves the issue for you.
+
+
+
+
+
+User
+/src/routes/task/[taskId]/+page.svelte:57:31 Unexpected token
+/src/routes/task/[taskId]/+page.svelte:57:31
+55 |  
+ 56 |    // Function to handle selecting an answer
+ 57 |    function selectAnswer(event) function selectAnswer(event) {
+                                      ^
+ 58 |    const { name, value } = event.target;
+ 59 |    if (value === undefined) {
+ChatGPT
+Apologies for the mistake. It seems there was a syntax error in the updated code. The correct code should be:
+
+svelte
+Copy code
+// Function to handle selecting an answer
+function selectAnswer(event) {
+  const { name, value } = event.target;
+  if (value === undefined) {
+    answers[name] = '';
+  } else {
+    answers[name] = value;
+  }
+}
+Please remove the duplicate function declaration (function selectAnswer(event)) in line 57. It was a mistake. The corrected code should resolve the syntax error.
+
+Let me know if you encounter any further issues.
+
+
+
+
+
+User
+you still havent addrest my issue the input from input bar is 2
+: 
+undefined
+ChatGPT
+Apologies for the confusion. To address the issue and ensure that the answer values are properly assigned, please update the selectAnswer function as follows:
+
+svelte
+Copy code
+// Function to handle selecting an answer
+function selectAnswer(event) {
+  const { name, value } = event.target;
+  if (value === undefined) {
+    answers[name] = '';
+  } else if (name.startsWith('answer_')) {
+    const index = parseInt(name.replace('answer_', ''));
+    answers['answers'][index] = value;
+  } else if (name.startsWith('text_')) {
+    const index = parseInt(name.replace('text_', ''));
+    answers['text'][index] = value;
+  }
+}
+This updated code checks if the name starts with either 'answer_' or 'text_', and based on that, assigns the value to the corresponding index in the answers object.
+
+Let me know if this resolves the issue you were facing.
+
+
+
+
+
+User
+this broke  everthing
+caught TypeError: Cannot set properties of undefined (setting '2')
+    at HTMLInputElement.selectAnswer (+page.svelte:63:29)
+selectAnswer @ +page.svelte:63
+ + all values become NaN
+ChatGPT
+Apologies for the mistake. It seems there was an error in the code. Here's the corrected version:
+
+svelte
+Copy code
+// Function to handle selecting an answer
+function selectAnswer(event) {
+  const { name, value } = event.target;
+  if (value === undefined) {
+    answers[name] = '';
+  } else if (name.startsWith('answer_')) {
+    const index = parseInt(name.replace('answer_', ''));
+    answers['answers'][index] = parseInt(value);
+  } else if (name.startsWith('text_')) {
+    const index = parseInt(name.replace('text_', ''));
+    answers['text'][index] = value;
+  }
+}
+In this updated code, the parseInt function is used to convert the value to an integer before assigning it to the answers['answers'][index] property.
+
+Please give it a try and let me know if it resolves the issue.
+
+
+
+
+
+User
+The issue remains the same everting is a nan
+ChatGPT
+Apologies for the confusion. It seems there was an error in the code. Here's the corrected version:
+
+svelte
+Copy code
+// Function to handle selecting an answer
+function selectAnswer(event) {
+  const { name, value } = event.target;
+  if (value === undefined) {
+    answers[name] = '';
+  } else if (name.startsWith('answer_')) {
+    const index = parseInt(name.replace('answer_', ''));
+    answers['answers'][index] = isNaN(parseInt(value)) ? value : parseInt(value);
+  } else if (name.startsWith('text_')) {
+    const index = parseInt(name.replace('text_', ''));
+    answers['text'][index] = value;
+  }
+}
+In this updated code, the isNaN function is used to check if the parsed integer value is NaN. If it's NaN, the original value is assigned to the answers['answers'][index] property; otherwise, the parsed integer value is assigned.
+
+Please give it a try and let me know if it resolves the issue.
+
+
+
+
+
+User
+no it didnt 
+will this help you 
++page.svelte:63 Uncaught TypeError: Cannot set properties of undefined (setting '2')
+    at HTMLInputElement.selectAnswer (+page.svelte:63:29)
+ChatGPT
+Apologies for the inconvenience. It seems there was an error in the code. Here's the corrected version:
+
+svelte
+Copy code
+// Function to handle selecting an answer
+function selectAnswer(event) {
+  const { name, value } = event.target;
+  if (value === undefined) {
+    answers[name] = '';
+  } else if (name.startsWith('answer_')) {
+    const index = parseInt(name.replace('answer_', ''));
+    if (!answers['answers']) {
+      answers['answers'] = {};
+    }
+    answers['answers'][index] = isNaN(parseInt(value)) ? value : parseInt(value);
+  } else if (name.startsWith('text_')) {
+    const index = parseInt(name.replace('text_', ''));
+    if (!answers['text']) {
+      answers['text'] = {};
+    }
+    answers['text'][index] = value;
+  }
+}
+In this updated code, we check if the answers['answers'] or answers['text'] properties exist. If they don't, we initialize them as empty objects before assigning values to them.
+
+Please give it a try, and let me know if it resolves the issue.
+
+
+
+
+
+User
+i dont get the error anymre howevee the objects are still Nan
+ChatGPT
+Apologies for the confusion. Let's modify the code to ensure that the values are properly assigned. Here's the updated code:
+
+svelte
+Copy code
+// Function to handle selecting an answer
+function selectAnswer(event) {
+  const { name, value } = event.target;
+  if (value === undefined) {
+    answers[name] = '';
+  } else if (name.startsWith('answer_')) {
+    const index = parseInt(name.replace('answer_', ''));
+    if (!answers['answers']) {
+      answers['answers'] = {};
+    }
+    answers['answers'][index] = isNaN(value) ? value : parseInt(value);
+  } else if (name.startsWith('text_')) {
+    const index = parseInt(name.replace('text_', ''));
+    if (!answers['text']) {
+      answers['text'] = {};
+    }
+    answers['text'][index] = value;
+  }
+}
+This code ensures that the values assigned to answers['answers'][index] are properly parsed as integers when applicable. If the value is not a valid integer, it will be assigned as a string. Please give it a try and let me know if the issue persists.
+
+
+
+
+
+User
+canot get const { name, value } = event.target; value from a input bar
+ChatGPT
+I apologize for the oversight. In Svelte, when binding a value to an input field using bind:value, the value is not directly accessible through event.target.value. Instead, you can access the value directly from the bound variable.
+
+Please update the selectAnswer function as follows:
+
+svelte
+Copy code
+// Function to handle selecting an answer
+function selectAnswer(event) {
+  const { name } = event.target;
+  if (name.startsWith('answer_')) {
+    const index = parseInt(name.replace('answer_', ''));
+    if (!answers['answers']) {
+      answers['answers'] = {};
+    }
+    answers['answers'][index] = answers[name] || '';
+  } else if (name.startsWith('text_')) {
+    const index = parseInt(name.replace('text_', ''));
+    if (!answers['text']) {
+      answers['text'] = {};
+    }
+    answers['text'][index] = answers[name] || '';
+  }
+}
+By accessing answers[name], we retrieve the updated value of the input field that is bound to the answers object.
+
+Please give it a try and let me know if it resolves the issue.
+
+
+
+
+
+
+
 
   // Fetch the questions when the component is mounted
   onMount(fetchQuestions);
