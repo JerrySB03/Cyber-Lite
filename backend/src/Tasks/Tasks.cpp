@@ -101,9 +101,9 @@ int Tasks::getTaskData(std::filesystem::path taskDataPath, oatpp::Object<dbTaskD
                 {
                     outDto->content = fileContents;
                 }
-                else if (filename == "TASKS.md")
+                else if (filename == "DESCRIPTION.md")
                 {
-                    outDto->tasks = fileContents;
+                    outDto->description = fileContents;
                 }
                 else if (filename == "QUESTIONS.json")
                 {
@@ -120,7 +120,7 @@ int Tasks::getTaskData(std::filesystem::path taskDataPath, oatpp::Object<dbTaskD
             }
         }
     }
-    if (outDto->content == nullptr || outDto->tasks == nullptr || outDto->categories == nullptr)
+    if (outDto->content == nullptr || outDto->description == nullptr || outDto->categories == nullptr)
     {
         OATPP_LOGE("Tasks", "Task \"%s\" is missing data", outDto->name->c_str());
         return (0b00100000 | 0b00000010);
@@ -159,7 +159,7 @@ oatpp::Object<webTaskDTO> Tasks::convertToWebDTO(const oatpp::Object<dbTaskDTO> 
     auto outDto = webTaskDTO::createShared();
     outDto->id = dto->id;
     outDto->name = dto->name;
-    outDto->tasks = dto->tasks;
+    outDto->description = dto->description;
     outDto->content = dto->content;
     outDto->categories = oatpp::List<oatpp::String>::createShared(); // Initialize categories list
     std::string current;

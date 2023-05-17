@@ -6,7 +6,7 @@
     let data = {
         name: "Loading...",
         description: "Loading",
-        content: "# Loading",
+        content: "Loading",
     };
 
     onMount(() => {
@@ -32,18 +32,14 @@
   const apiResponse = {
     "questions": [
       {
-        "question": "What is the answer to everything?",
+        "question": "Na jakých stránkách můžete zkontrolovat, zdali je příloha opravdu nebezpečná nebo ne?",
         "type": "ABC",
-        "answers": ["41", "42", "43"]
+        "answers": ["seznam.cz", "virustotal.com", "amazon.de"]
       },
       {
-        "question": "What is the answer to everything?",
-        "type": "TEXT"
-      },
-      {
-        "question": "What is the answer to everything?",
-        "type": "SELECTION",
-        "text": "The answer could be 41, 42, or maybe even 43"
+        "question": "Kdo/co dělá tuto prázi za vás?",
+        "type": "ABC",
+        "answers": ["Operační systém", "Antivirový program", "Webový Prohlížeč"]
       }
     ]
   };
@@ -240,10 +236,10 @@
     <md-block class="MD" style="margin-top: 28px;">
         <!--style="margin-left: 16px; margin-right: 16px; margin-top: 64px;"-->
         <p class="MD">
-            {#if data.description == "Loading"}
-                    <SvelteMarkdown source={data.description}/>
+            {#if data.content == "Loading"}
+                    <SvelteMarkdown source={data.content}/>
                     {:else}
-                    <SvelteMarkdown source={data.description}/>
+                    <SvelteMarkdown source={data.content}/>
                     {/if}
         </p>
     </md-block>
@@ -266,10 +262,10 @@
         <md-block class="MD" style="margin-top: 28px;">
             <p class="MD">
                 <md-span>
-                    {#if data.content == "Loading"}
-                    <SvelteMarkdown source={data.content}/>
+                    {#if data.description == "Loading"}
+                    <SvelteMarkdown source={data.description}/>
                     {:else}
-                    <SvelteMarkdown source={data.content}/>
+                    <SvelteMarkdown source={data.description}/>
                     {/if}
                 </md-span>
             </p>
