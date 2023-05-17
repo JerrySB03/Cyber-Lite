@@ -38,6 +38,7 @@ Tasks::Tasks(const oatpp::String &sourceFolder)
             {
                 if (dbResult->getErrorMessage()->find("UNIQUE constraint failed: tasks.name") == std::string::npos) // If the error is is that the task already exists, skip it
                 {
+                    OATPP_LOGV("Tasks", "Successfully loaded task \"%s\"(already exists)", dto->name->c_str());
                     continue;
                 }
                 OATPP_LOGE("Tasks", "Failed to create task \"%s\"", dto->name->c_str());

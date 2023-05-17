@@ -25,6 +25,7 @@ public:
     oatpp::UInt32 getUserId(const oatpp::Object<UserDTO> &dto);
     oatpp::Object<UserDTO> getUserById(const oatpp::UInt32 &id, const oatpp::provider::ResourceHandle<oatpp::orm::Connection> &connection = nullptr);
     bool validateToken(const oatpp::String &token, const oatpp::UInt32 &id);
+    int generateToken(const oatpp::Object<UserDTO> &dto, const oatpp::UInt32 &id);
 };
 class Hash
 {
