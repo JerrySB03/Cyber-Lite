@@ -63,6 +63,7 @@ int Tasks::getTaskData(std::filesystem::path taskDataPath, oatpp::Object<dbTaskD
     }
     auto outDto = dbTaskDTO::createShared();
     outDto->name = taskDataPath.filename().string();
+    auto object_mapper = oatpp::parser::json::mapping::ObjectMapper::createShared();
     OATPP_LOGV("Tasks", "Loading task \"%s\"", outDto->name->c_str())
     for (const auto &taskData : std::filesystem::directory_iterator(taskDataPath))
     {
@@ -91,20 +92,22 @@ int Tasks::getTaskData(std::filesystem::path taskDataPath, oatpp::Object<dbTaskD
             oatpp::String filename = std::filesystem::path(taskData).filename().string();
             if (std::filesystem::is_regular_file(taskData))
             {
+                auto fileContents = file::readFile(std::filesystem::path(taskData));
                 if (filename == "CATEGORIES")
                 {
-                    outDto->categories = file::readFile(std::filesystem::path(taskData));
+                    outDto->categories = fileContents;
                 }
                 else if (filename == "CONTENT.md")
                 {
-                    outDto->content = file::readFile(std::filesystem::path(taskData));
+                    outDto->content = fileContents;
                 }
                 else if (filename == "DESCRIPTION.md")
                 {
-                    outDto->description = file::readFile(std::filesystem::path(taskData));
+                    outDto->description = fileContents;
                 }
                 else if (filename == "QUESTIONS.json")
                 {
+                    outDto->questions = fileContents;
                 }
                 else
                 {
@@ -117,7 +120,7 @@ int Tasks::getTaskData(std::filesystem::path taskDataPath, oatpp::Object<dbTaskD
             }
         }
     }
-    if (outDto->content == nullptr || outDto->description == nullptr || outDto->categories == nullptr)
+    if (outDto->content == nullptr || outDto->description == nullptr || outDto->categories == nullptr || outDto->questions == nullptr)
     {
         OATPP_LOGE("Tasks", "Task \"%s\" is missing data", outDto->name->c_str());
         return (0b00100000 | 0b00000010);
@@ -158,6 +161,7 @@ oatpp::Object<webTaskDTO> Tasks::convertToWebDTO(const oatpp::Object<dbTaskDTO> 
     outDto->name = dto->name;
     outDto->description = dto->description;
     outDto->content = dto->content;
+    outDto->questions = dto->questions;
     outDto->categories = oatpp::List<oatpp::String>::createShared(); // Initialize categories list
     std::string current;
     for (const char &c : *dto->categories)
@@ -173,4 +177,16 @@ oatpp::Object<webTaskDTO> Tasks::convertToWebDTO(const oatpp::Object<dbTaskDTO> 
         }
     }
     return outDto;
+}
+oatpp::String Tasks::getQuestionsById(const oatpp::UInt32 &id)
+{
+    auto dbResult = database->getTaskById(id);
+
+    OATPP_ASSERT_HTTP(dbResult->isSuccess(), Status::CODE_500, dbResult->getErrorMessage());
+    OATPP_ASSERT_HTTP(dbResult->hasMoreToFetch(), Status::CODE_404, "Task with id " + std::to_string(id) + " doesn't exist");
+
+    auto result = dbResult->fetch<oatpp::Vector<oatpp::Object<dbTaskDTO>>>();
+    OATPP_ASSERT_HTTP(result->size() == 1, Status::CODE_500, "Unknown error");
+
+    return result[0]->questions;
 }

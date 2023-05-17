@@ -22,5 +22,6 @@ CREATE TABLE Tasks (
     name VARCHAR UNIQUE NOT NULL,
     description VARCHAR,
     content VARCHAR,
-    categories VARCHAR
+    categories VARCHAR,
+    questions VARCHAR
 );
