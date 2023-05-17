@@ -3,11 +3,9 @@
   import { readable } from "svelte/store";
 
   const navItems = [
-    { label: "CyberLite", href: "" },
-    { label: "Home", href: "#" },
-    { label: "Item 2", href: "#" },
-    { label: "Úlohy", href: "/task" },
-    { label: "O nás", href: "#aboutus" },
+    { label: "CyberLite", href: "#" },
+    { label: "Úlohy", href: "/dash" },
+    { label: "O nás", href: "/#aboutus" },
     { label: "Login", href: "/login" },
   ];
   //topbar
@@ -485,4 +483,9 @@
       display: inline-flex;
     }
   }
+  :global(body){
+    background-color: lightseagreen;
+    background-image: url("../cool-background.png");
+  }
+
 </style>

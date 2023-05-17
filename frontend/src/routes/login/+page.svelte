@@ -23,7 +23,7 @@
   let showMobileMenu = false;
 
   const navItems = [
-    { label: "Home", href: "/" },
+    { label: "CyberLite", href: "#" },
     { label: "Úlohy", href: "/dash" },
     { label: "O nás", href: "/#aboutus" },
     { label: "Login", href: "/login" },
@@ -418,4 +418,9 @@
       display: inline-flex;
     }
   }
+  :global(body){
+    background-color: lightseagreen;
+    background-image: url("../cool-background.png");
+  }
+
 </style>
