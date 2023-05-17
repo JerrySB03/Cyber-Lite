@@ -1,21 +1,21 @@
 {
     "Questions": {
         "Co platí pro Black hat hackera ??": {
-            "Answers": {
-                "Jeho cílem je bezepčnost běžných uživatelů.": {
-                    "Correct": false
-                },
-                "Jeho cílem je osobní zisk.": {
-                    "Correct": true
-                },
-                "Jeho cílem je všeobecná prosperita.": {
-                    "Correct": false
-
-                }
-            }
+            "type": "ABC",
+            "answers": [
+                "Jeho cílem je bezepčnost běžných uživatelů.",
+                "Jeho cílem je osobní zisk.",
+                "Jeho cílem je všeobecná prosperita."
+            ],
+            "correct": 2
         },
-        "Jak se nazívají hackři s politickými motivy ? (Bez diakritky vše malé)": {
-            "Answers": "hacktiviste"
+        "Jak se nazívají hackři s politickými motivy(Bez diakritky vše malé)?": {
+            "type": "TEXT",
+            "answers": [
+                "hacktivisté",
+                "hacktiviste",
+                "hacktivisti"
+            ]
         }
     }
 }

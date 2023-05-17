@@ -20,13 +20,11 @@ class dbTaskDTO : public oatpp::DTO
         info->required = false;
     }
     DTO_FIELD_INFO(content) { info->description = "Task displayed formatted content"; };
-    DTO_FIELD_INFO(questions) { info->description = "Task questions"; };
     DTO_FIELD(Int32, id);
     DTO_FIELD(String, name);
     DTO_FIELD(String, tasks);
     DTO_FIELD(String, categories);
     DTO_FIELD(String, content);
-    DTO_FIELD(String, questions);
 };
 class webTaskDTO : public oatpp::DTO
 {
@@ -69,12 +67,13 @@ class AnswersDTO : public oatpp::DTO
     DTO_INIT(AnswersDTO, DTO)
 
     DTO_FIELD(List<oatpp::Object<AnswerDTO>>, answers);
-    char customSeparator = '+';
+    const static char customSeparator = '+';
 };
 class QuestionDTO : public oatpp::DTO
 {
     DTO_INIT(QuestionDTO, DTO)
 
+    DTO_FIELD(Int32, id);
     DTO_FIELD(String, type);
     DTO_FIELD(Object<AnswersDTO>, answers);
     DTO_FIELD(String, correct);
@@ -83,6 +82,7 @@ class dbQuestionDTO : public oatpp::DTO
 {
     DTO_INIT(dbQuestionDTO, DTO)
 
+    DTO_FIELD(Int32, task_id);
     DTO_FIELD(String, type);
     DTO_FIELD(String, answers);
     DTO_FIELD(String, correct);

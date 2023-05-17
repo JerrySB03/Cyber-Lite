@@ -97,8 +97,8 @@ public:
       
       QUERY(createTask,
             "INSERT INTO Tasks"
-            "(name, description, content, categories, questions) VALUES "
-            "(:task.name, :task.description, :task.content, :task.categories, :task.questions);",
+            "(name, content, categories) VALUES "
+            "(:task.name, :task.content, :task.categories);",
             PARAM(oatpp::Object<dbTaskDTO>, task))
       QUERY(getTaskById,
             "SELECT * "
@@ -110,7 +110,7 @@ public:
       QUERY(getAllTasks,
             "SELECT * "
             " FROM Tasks;")
-      QUERY(InsertQuestions,
+      QUERY(InsertQuestion,
             "INSERT INTO Questions "
             "(task_id, question, answer) VALUES "
             "(:question.task_id, :question.question, :question.answer);",

@@ -2,10 +2,11 @@
 <script>
     import { onMount } from "svelte";
     import { page } from "$app/stores";
+    import SvelteMarkdown from 'svelte-markdown'
     let data = {
         name: "Loading...",
-        description: "Loading...",
-        content: "# Loading...",
+        description: "Loading",
+        content: "# Loading",
     };
 
     onMount(() => {
@@ -239,7 +240,11 @@
     <md-block class="MD" style="margin-top: 28px;">
         <!--style="margin-left: 16px; margin-right: 16px; margin-top: 64px;"-->
         <p class="MD">
-            {data.content}
+            {#if data.description == "Loading"}
+                    <SvelteMarkdown source={data.description}/>
+                    {:else}
+                    <SvelteMarkdown source={data.description}/>
+                    {/if}
         </p>
     </md-block>
 </div>
@@ -261,7 +266,11 @@
         <md-block class="MD" style="margin-top: 28px;">
             <p class="MD">
                 <md-span>
-                    {data.content}
+                    {#if data.content == "Loading"}
+                    <SvelteMarkdown source={data.content}/>
+                    {:else}
+                    <SvelteMarkdown source={data.content}/>
+                    {/if}
                 </md-span>
             </p>
         </md-block>

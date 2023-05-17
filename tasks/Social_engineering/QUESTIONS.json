@@ -1,43 +1,31 @@
 {
-    "Questions": {
+    "questions": {
         "Které z těchto možností není bezpečnostní kontrola emailu?": {
-            "Answers": {
-                "Zkrontolování adresy odesílatele.": {
-                    "Correct": false
-                },
-                "Zkontrolování příloh emailu.": {
-                    "Correct": false
-                },
-                "Kontrola času odeslání": {
-                    "Correct": true
-                }
-            }
+            "type": "ABC",
+            "answers": [
+                "Zkrontolování adresy odesílatele.",
+                "Zkontrolování příloh emailu.",
+                "Kontrola času odeslání"
+            ],
+            "correct": 3
         },
         "Na jakých stránkách můžete zkontrolovat zdali je příloha opravdu nebezpečná nebo ne ?": {
-            "Answers": {
-                "seznam.cz": {
-                    "Correct": false
-                },
-                "virustotal.com": {
-                    "Correct": true
-                },
-                "amazon.de": {
-                    "Correct": false
-                }
-            }
+            "type": "ABC",
+            "answers": [
+                "seznam.cz",
+                "virustotal.com",
+                "amazon.de"
+            ],
+            "correct": 2
         },
-        "Kdo dělá tuto práci za nás ?": {
-            "Answers": {
-                "Operační systém": {
-                    "Correct": false
-                },
-                "Webový prohlížeč": {
-                    "Correct": false
-                },
-                "Antivirus": {
-                    "Correct": true
-                }
-            }
+        "Kdo dělá tuto práci(kontrolování souborů) za nás ?": {
+            "type": "ABC",
+            "answers": [
+                "Operační systém",
+                "Webový prohlížeč",
+                "Antivirus"
+            ],
+            "correct": 3
         }
     }
 }

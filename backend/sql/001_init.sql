@@ -20,8 +20,14 @@ VALUES (
 CREATE TABLE Tasks (
     id INTEGER PRIMARY KEY,
     name VARCHAR UNIQUE NOT NULL,
-    description VARCHAR,
+    tasks VARCHAR,
     content VARCHAR,
-    categories VARCHAR,
-    questions VARCHAR
+    categories VARCHAR
+);
+CREATE TABLE Questions(
+    task_id INTEGER PRIMARY KEY,
+    name VARCHAR 
+    questions VARCHAR,
+    content VARCHAR,
+    categories VARCHAR
 );

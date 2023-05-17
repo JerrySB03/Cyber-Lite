@@ -30,11 +30,11 @@
   ];
 
   onMount(async () => {
-  const mediaListener = window.matchMedia("(max-width: 767px)");
-  window.addEventListener("resize", handleResize);
-  mediaListener.addListener(mediaQueryHandler);
-  //-----------------------API--------------------
-  async function fetchData() {
+    const mediaListener = window.matchMedia("(max-width: 767px)");
+    window.addEventListener("resize", handleResize);
+    mediaListener.addListener(mediaQueryHandler);
+    //-----------------------API--------------------
+    async function fetchData() {
       const response = await fetch("/api/tasks/getall", {
         method: "GET",
         headers: {
@@ -63,7 +63,6 @@
     fetchData();
   });
 
-
   function handleSearch() {
     searchResults = data.filter((item) => {
       const name = item.name.toLowerCase();
@@ -81,7 +80,11 @@
     searchBarWidth = Math.min(600, window.innerWidth - 400); // Set maximum width to 600px
   }
 </script>
-<div class="background" style="background-image: url('file:///home/jumanji/Documents/Code/Cyber-Lite/frontend/static/Hory.jpg');">
+
+<div
+  class="background"
+  style="background-image: url('file:///home/jumanji/Documents/Code/Cyber-Lite/frontend/static/Hory.jpg');"
+>
   <nav>
     <a href="/">
       <svg
@@ -249,12 +252,10 @@
     {/if}
   </div>
 </div>
+
 <style>
-  .background{
-    
-    
-    height: 1400px
-    
+  .background {
+    height: 1400px;
   }
 
   .particles {
