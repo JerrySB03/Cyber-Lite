@@ -23,6 +23,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"md-block": "^0.0.1",
 		"svelte-use-form": "^2.6.2"
 	}
 }
