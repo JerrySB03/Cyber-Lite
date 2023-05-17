@@ -220,16 +220,16 @@
       <p style="font-size: Ubuntu;">{magictext}</p>
     </div>
     <div class="div-topText">
-      <h1 class="h1-mt; font-family: Ubuntu; color: black;">Lorem ipsum</h1>
+      <h1 class="h1-mt; font-family: Ubuntu; color: black;">Význam a nezbytnost dostupnosti kybernetické bezpečnosti</h1>
       <p style="font-family: Ubuntu; color: black;">
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Fusce suscipit
-        libero eget elit. Sed vel lectus. Donec odio tempus molestie, porttitor
-        ut, iaculis quis, sem. Integer rutrum, orci vestibulum ullamcorper
-        ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet
-        enim. Aliquam erat volutpat. Cras pede libero, dapibus nec, pretium sit
-        amet, tempor quis. Etiam bibendum elit eget erat. Duis condimentum augue
-        id magna semper rutrum. In dapibus augue non sapien. Sed ac dolor sit
-        amet purus malesuada congue. Maecenas fermentum, sem in pharetra.
+        Kybernetická bezpečnost je nezbytná v digitální éře, kde hrozby útoků 
+        rostou. Je klíčová pro ochranu sítí, infrastruktury a osobních dat. Útoky 
+        mohou ohrozit kritické systémy a způsobit zničující důsledky. Dostupnost 
+        kybernetické bezpečnosti je důležitá pro ochranu soukromí a prevenci zneužití 
+        osobních informací. Nedostatečná bezpečnost může poškodit ekonomiku a způsobit
+        vysoké ztráty. Je nezbytné investovat do výzkumu, vzdělávání a technologií, aby 
+        se předcházelo a reagovalo na kybernetické útoky. Dostupnost bezpečnosti je klíčová 
+        pro zajištění spolehlivého a bezpečného digitálního prostředí pro všechny uživatele.
       </p>
     </div>
     <div class="div-newChall">
@@ -257,25 +257,24 @@
     </div>
     <div class="shadow" />
     <div class="div-bottomText" style="font-family: U;">
-      <h2 style="text-decoration: underline; color: black;">About us</h2>
+      <h2 style="text-decoration: underline; color: black;">O nás</h2>
       <p style="color: black">
-        <!--Aenean fermentum risus id tortor. Integer malesuada. Nullam dapibus
-        fermentum ipsum. Quisque porta. Morbi scelerisque luctus velit. Fusce
-        tellus odio, dapibus id fermentum quis, suscipit id erat. In dapibus
-        augue non sapien. Vivamus luctus egestas leo. Integer in sapien. Vivamus
-        luctus egestas leo. Nullam faucibus mi quis velit. Temporibus autem
-        quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet
-        ut et voluptates repudiandae sint et-->
-        Jsme malá skupina lidí, kteří ještě včera neměli nic společného s weby, nebo web developmentem.
+        O projektu
+        Projekt vznikl pro Hackathon 2023 konající se v Brně. Vybrali jsme si téma kybernetická bezpečnost pro laickou veřejnost a po čase se rozhodli že chceme udělat osvětový web. Ale čím se odlišit od ostatních ? Co děláme jinak ? 
 
+        Hlavní odlišností od konkurence by mělo být interaktivnost, kterou můžeme svým uživatelům nabídnout. U ostatních společností tyto programy fungujou dlouhých přednášek či članků na téma, které si následně koncoví uživatelé stejnak nezapamatují. U nás děláme věci jinak. Po pročtení informací z cvičení, necháme uživatele interagovat ať už buďto s malým quizem či s phishingovým mailem...
+
+        Věříme že tento přístup může uživatele motivovat, pro učení základů kybernetické bezpečnosti.
       </p>
     </div>
     <p
       style="border-radius: 20px; border-width:3px; border-style:solid; border-color:#7C7C7C; padding: 0em; margin-left: 50px; margin-right: 350px"
       class="line"
     />
+    <p class="us">Cyber-Lite 2023</p>
   </nav>
 </div>
+
 
 <style>
   nav {
@@ -508,5 +507,10 @@
     color: purple;
     font-weight: bold;
     font-size: 30px;
+  }
+
+  .us {
+    margin-left: 50px;
+    font-size: 10px;
   }
 </style>

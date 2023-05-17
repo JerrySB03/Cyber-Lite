@@ -1,3 +1,7 @@
+# Komunikační hrozby
+**V následujících sekcích se podíváme na to jak vypadájí hrozby v prostoru 
+mailů, telefonátů a mobilních zpráv.**
+
 ## Phishing
 Phishing je hromadný útok na určitou skupinu za <u>účelem finančního zisku 
 či poškození firmy nebo osoby</u>. Phishing má po většinu času podobu 
