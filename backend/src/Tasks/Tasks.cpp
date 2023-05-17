@@ -101,9 +101,9 @@ int Tasks::getTaskData(std::filesystem::path taskDataPath, oatpp::Object<dbTaskD
                 {
                     outDto->content = fileContents;
                 }
-                else if (filename == "DESCRIPTION.md")
+                else if (filename == "TASKS.md")
                 {
-                    outDto->description = fileContents;
+                    outDto->tasks = fileContents;
                 }
                 else if (filename == "QUESTIONS.json")
                 {
@@ -120,7 +120,7 @@ int Tasks::getTaskData(std::filesystem::path taskDataPath, oatpp::Object<dbTaskD
             }
         }
     }
-    if (outDto->content == nullptr || outDto->description == nullptr || outDto->categories == nullptr || outDto->questions == nullptr)
+    if (outDto->content == nullptr || outDto->tasks == nullptr || outDto->categories == nullptr || outDto->questions == nullptr)
     {
         OATPP_LOGE("Tasks", "Task \"%s\" is missing data", outDto->name->c_str());
         return (0b00100000 | 0b00000010);
@@ -159,7 +159,7 @@ oatpp::Object<webTaskDTO> Tasks::convertToWebDTO(const oatpp::Object<dbTaskDTO> 
     auto outDto = webTaskDTO::createShared();
     outDto->id = dto->id;
     outDto->name = dto->name;
-    outDto->description = dto->description;
+    outDto->tasks = dto->tasks;
     outDto->content = dto->content;
     outDto->questions = dto->questions;
     outDto->categories = oatpp::List<oatpp::String>::createShared(); // Initialize categories list
@@ -177,16 +177,4 @@ oatpp::Object<webTaskDTO> Tasks::convertToWebDTO(const oatpp::Object<dbTaskDTO> 
         }
     }
     return outDto;
-}
-oatpp::String Tasks::getQuestionsById(const oatpp::UInt32 &id)
-{
-    auto dbResult = database->getTaskById(id);
-
-    OATPP_ASSERT_HTTP(dbResult->isSuccess(), Status::CODE_500, dbResult->getErrorMessage());
-    OATPP_ASSERT_HTTP(dbResult->hasMoreToFetch(), Status::CODE_404, "Task with id " + std::to_string(id) + " doesn't exist");
-
-    auto result = dbResult->fetch<oatpp::Vector<oatpp::Object<dbTaskDTO>>>();
-    OATPP_ASSERT_HTTP(result->size() == 1, Status::CODE_500, "Unknown error");
-
-    return result[0]->questions;
 }

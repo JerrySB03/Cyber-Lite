@@ -4,6 +4,7 @@
 #include "DTOs/UserDtos.hpp"
 #include "DTOs/TaskDtos.hpp"
 #include <oatpp-sqlite/orm.hpp>
+#include <string>
 
 #include OATPP_CODEGEN_BEGIN(DbClient)
 
@@ -19,6 +20,34 @@ public:
 
             auto version = executor->getSchemaVersion();
             OATPP_LOGD("Database", "Migration - OK. Version=%lld.", version);
+      }
+      oatpp::String DeserializeString(oatpp::List<oatpp::String> list,  const char delimiter = ';')
+      {
+            oatpp::String result = "";
+            for (auto &item : *list)
+            {
+                  result->append(item + std::to_string(delimiter));
+            }
+            result->pop_back(); // remove last delimiter
+            return result;
+      }
+      oatpp::List<oatpp::String> SerializeString(const oatpp::String &list, const char delimiter = ';')
+      {
+            oatpp::List<oatpp::String> result;
+            oatpp::String item = "";
+            for (auto &c : *list)
+            {
+                  if (c == delimiter)
+                  {
+                        result->push_back(item);
+                        item = "";
+                  }
+                  else
+                  {
+                        item->push_back(c);
+                  }
+            }
+            return result;
       }
       QUERY(createUser,
             "INSERT INTO Users"
@@ -81,6 +110,11 @@ public:
       QUERY(getAllTasks,
             "SELECT * "
             " FROM Tasks;")
+      QUERY(InsertQuestions,
+            "INSERT INTO Questions "
+            "(task_id, question, answer) VALUES "
+            "(:question.task_id, :question.question, :question.answer);",
+            PARAM(oatpp::Object<dbQuestionDTO>, question))
 };
 
 #include OATPP_CODEGEN_END(DbClient)
