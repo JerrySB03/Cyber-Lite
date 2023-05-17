@@ -17,9 +17,10 @@ public:
 
     OATPP_COMPONENT(std::shared_ptr<Database>, database); // Get database component
 private:
-    oatpp::Object<dbQuestionDTO> Questions::convertToDbQuestions(const oatpp::Object<QuestionDTO> &dto);
-    oatpp::List<oatpp::Object<QuestionDTO>> convertFromDbQuestions(const oatpp::List<oatpp::Object<dbQuestionDTO>> &dto);
+    oatpp::Object<dbQuestionDTO> convertToDbQuestions(const oatpp::Object<QuestionDTO> &dto);
+    oatpp::Object<QuestionDTO> convertFromDbQuestions(const oatpp::Object<dbQuestionDTO> &dto);
 
 public:
-    oatpp::Object<QuestionDTO> Questions::getQuestionsById(const oatpp::UInt32 &id);
-}
+    oatpp::Object<QuestionDTO> getQuestionsById(const oatpp::UInt32 &id);
+    int insertQuestions(const oatpp::Object<QuestionDTO> &dto);
+};

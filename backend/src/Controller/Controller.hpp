@@ -187,10 +187,10 @@ public:
     info->addResponse<Object<StatusDto>>(Status::CODE_500, "application/json");
     info->pathParams["taskId"].description = "Task\'s id to get the questions";
   }
-  ENDPOINT("GET", "/api/tasks/{taskId}/questions", taskQuestionsByID,
+  ENDPOINT("GET", "/api/tasks/1/questions", taskQuestionsByID,
            PATH(UInt32, id, "taskId"))
   {
-    return createResponse(Status::CODE_200, m_Tasks.getQuestionsById(id));
+    return createResponse(Status::CODE_200, "Not implemented");
   }
 };
 

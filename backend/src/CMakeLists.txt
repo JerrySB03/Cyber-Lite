@@ -15,8 +15,7 @@ add_library(${project_name}-core
         Users/Users.cpp
         Tasks/Tasks.hpp
         Tasks/Tasks.cpp
-        Tasks/Questions/Questions.cpp
-        Tasks/Questions/Questions.hpp
+
 )
 
 
