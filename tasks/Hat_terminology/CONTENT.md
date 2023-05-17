@@ -1,3 +1,9 @@
+# Teorie čepiček
+
+**V médiích a občas v profesi se můžeme setkat s pojmem čepiček neboli 
+Hats. Je to docela zajímavé a jednoducá teorie proto ji zde ukážu. Není to 
+nic extra důležitého a můžete tím zlepšit svou orientaci v terminologii.**
+
 ## Hat (Čepičky)
 Aby se označování pro veřejnost zlepšilo, přišlo se s pojmem čepiček. 
 Každá čepička má nějakou barvu a označuje co specialista na Kybernetickou 
