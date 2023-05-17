@@ -8,9 +8,7 @@
 
   // List of navigation items
   const navItems = [
-    { label: "CyberLite", href: "#" },
-    { label: "Home", href: "/#" },
-    { label: "Item 2", href: "#" },
+    { label: "CyberLite", href: "/#" },
     { label: "Úlohy", href: "/dash" },
     { label: "O nás", href: "/#aboutus" },
     { label: "Login", href: "/login" },
@@ -514,4 +512,9 @@
     margin-left: 50px;
     font-size: 10px;
   }
+  :global(body){
+    background-color: lightseagreen;
+    background-image: url("cool-background.png");
+  }
+
 </style>
