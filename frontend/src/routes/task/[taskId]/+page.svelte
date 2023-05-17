@@ -266,7 +266,7 @@
             </p>
         </md-block>
     </div>
-    <div>
+    <div class="questions">
         {#if questions.length > 0}
     <form on:submit|preventDefault={submitForm}>
       {#each questions as question, index}
@@ -274,7 +274,7 @@
           <h3>{question.question}</h3>
           {#each question.answers as answer}
             <label>
-              <input type="radio" name={`answer_${index}`} value={answer} on:change={selectAnswer} checked={answers[`answer_${index}`] === answer} />
+              <input class="choice" type="radio" name={`answer_${index}`} value={answer} on:change={selectAnswer} checked={answers[`answer_${index}`] === answer} />
               {answer}
             </label>
           {/each}
@@ -338,5 +338,20 @@
         border-color: rgba(24, 24, 24, 1);
         border-width: 1px;
         border-style: outset;
+
     }
+
+    .questions {
+        float: right;
+        background-color: rgba(17, 17, 17, 0.4);
+        padding-top: 20px;
+        padding-right: 30px;
+        padding-left: 30px;
+        padding-bottom: 20px;
+        border-radius: 20px;
+        margin-top: 50px;
+        margin-right: 20px;
+        box-shadow: 8px 8px rgba(0, 0, 0, 0.2);
+    }
+
 </style>

@@ -1,6 +1,7 @@
 <script>
   import { readable } from "svelte/store";
   import { onMount } from "svelte";
+  let imageUrl = 'Hory.jpg';
 
   // Show mobile icon and display menu
   let showMobileMenu = false;
@@ -64,7 +65,7 @@
   href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin"
 />
 
-<div class="backgroundImage">
+<div class="container">
   <canvas class="background" />
   <nav>
     <a href="/">
