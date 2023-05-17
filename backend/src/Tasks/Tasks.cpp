@@ -107,7 +107,6 @@ int Tasks::getTaskData(std::filesystem::path taskDataPath, oatpp::Object<dbTaskD
                 }
                 else if (filename == "QUESTIONS.json")
                 {
-                    remove_if(fileContents->begin(), fileContents->end(), isspace);
                     outDto->questions = fileContents;
                 }
                 else
