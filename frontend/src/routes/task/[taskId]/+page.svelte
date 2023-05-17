@@ -11,6 +11,7 @@
         page.subscribe((value) => {
             const { params } = value;
             data = fetchData(params.taskId);
+            console.log(data.name);
         });
     });
 
